@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "description": "vitepress-theme-demoblock",
   "repository": {
-    "type": "",
-    "url": ""
+    "type": "git",
+    "url": "https://github.com/xinlei3166/vitepress-theme-demoblock"
   },
   "keywords": [],
   "bugs": {
-    "url": ""
+    "url": "https://github.com/xinlei3166/vitepress-theme-demoblock/issues"
   },
-  "homepage": "",
-  "author": "",
+  "homepage": "https://github.com/xinlei3166/vitepress-theme-demoblock#readme",
+  "author": "君惜",
   "license": "MIT",
   "bin": {
     "vitepress-register-components": "bin/vitepress-register-components.js",
