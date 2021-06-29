@@ -24,11 +24,11 @@
   "files": [
     "bin",
     "components",
-    "demo-block",
+    "demoblock",
     "theme",
     ".prettierrc"
   ],
-  "main": "demo-block/index.js",
+  "main": "demoblock/index.js",
   "scripts": {
     "docs:dev": "yarn register:components && vitepress dev docs",
     "docs:build": "yarn register:components && vitepress build docs",

@@ -38,8 +38,8 @@
 import { useRoute } from 'vitepress'
 import { ref, reactive, computed, watch, onMounted, onBeforeUnmount, nextTick, getCurrentInstance } from 'vue'
 import { throttle } from 'lodash-es'
-import clipboardCopy from '../demo-block/clipboard-copy'
-import { stripTemplate, stripScript, stripStyle } from '../demo-block/assist'
+import clipboardCopy from '../demoblock/clipboard-copy'
+import { stripTemplate, stripScript, stripStyle } from '../demoblock/assist'
 
 export default {
   name: 'Demo',

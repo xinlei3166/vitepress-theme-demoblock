@@ -45,7 +45,7 @@ module.exports = {
     toc: { includeLevel: [1, 2] },
 
     config: (md) => {
-      const { demoBlockPlugin } = require('../../demo-block')
+      const { demoBlockPlugin } = require('../../demoblock')
       md.use(demoBlockPlugin)
     }
   }
