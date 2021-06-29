@@ -25,7 +25,8 @@
     "bin",
     "components",
     "demo-block",
-    "theme"
+    "theme",
+    ".prettierrc"
   ],
   "main": "demo-block/index.js",
   "scripts": {
