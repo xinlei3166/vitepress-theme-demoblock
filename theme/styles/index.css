@@ -1,5 +1,6 @@
 @import './var.css';
 @import './code.css';
+@import '../iconfont/iconfont.css';
 
 .icon {
   width: 1em;

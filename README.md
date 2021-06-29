@@ -41,7 +41,8 @@ markdown: {
 .vitepress/theme/index.js中使用vitepress-theme-demoblock主题，并注册组件(包含主题中默认的组件)。
 
 ```js
-import theme from 'vitepress-theme-demoblock/theme'
+import theme from 'vitepress/dist/client/theme-default'
+import 'vitepress-theme-demoblock/theme/styles/index.css'
 import { registerComponents } from './register-components'
 
 export default {
