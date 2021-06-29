@@ -48,7 +48,8 @@
     "markdown-it": "^12.0.4",
     "minimist": "^1.2.5",
     "vitepress": "^0.15.5",
-    "yaml": "^2.0.0-6"
+    "yaml": "^2.0.0-6",
+    "prettier": "^2.2.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.12",
@@ -63,7 +64,6 @@
     "jest": "^26.1.0",
     "lint-staged": "^10.5.4",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.2.1",
     "ts-jest": "^26.3.0",
     "ts-node": "^9.1.1",
     "tsup": "^4.11.1",
