@@ -1,3 +1,12 @@
+## [1.0.4](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.0.3...v1.0.4) (2021-06-29)
+
+
+### Features
+
+* rename demo-block to demoblock ([7f674b5](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/7f674b5f488c8aa6fce92dbd1c3431c4ecbab3cd))
+
+
+
 ## [1.0.3](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.0.2...v1.0.3) (2021-06-29)
 
 
