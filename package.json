@@ -6,7 +6,11 @@
     "type": "git",
     "url": "https://github.com/xinlei3166/vitepress-theme-demoblock"
   },
-  "keywords": [],
+  "keywords": [
+    "vitepress",
+    "vue",
+    "theme"
+  ],
   "bugs": {
     "url": "https://github.com/xinlei3166/vitepress-theme-demoblock/issues"
   },
