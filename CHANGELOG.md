@@ -1,3 +1,12 @@
+## [1.0.2](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.0.1...v1.0.2) (2021-06-29)
+
+
+### Features
+
+* clipboard-copy ([eebb743](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/eebb743d36634e6d0994a5d7d334424352d8722e))
+
+
+
 ## [1.0.1](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.0.0...v1.0.1) (2021-06-29)
 
 
