@@ -6,7 +6,7 @@
 
 基础的卡片用法。
 
-:::demo 112
+:::demo
 
 ```vue
 <template>
