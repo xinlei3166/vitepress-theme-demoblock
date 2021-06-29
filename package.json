@@ -1,0 +1,78 @@
+{
+  "name": "vitepress-theme-demoblock",
+  "version": "1.0.0",
+  "description": "vitepress-theme-demoblock",
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "keywords": [],
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "author": "",
+  "license": "MIT",
+  "bin": {
+    "vitepress-register-components": "bin/vitepress-register-components.js",
+    "vitepress-rc": "bin/vitepress-register-components.js"
+  },
+  "files": [
+    "bin",
+    "components",
+    "demo-block",
+    "theme"
+  ],
+  "main": "demo-block/index.js",
+  "scripts": {
+    "docs:dev": "yarn register:components && vitepress dev docs",
+    "docs:build": "yarn register:components && vitepress build docs",
+    "docs:serve": "vitepress serve docs",
+    "register:components": "node bin/vitepress-register-components.js",
+    "test": "jest",
+    "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx,.vue",
+    "deploy": "git push origin --tags && npm run build && npm publish"
+  },
+  "dependencies": {
+    "camelcase": "^6.2.0",
+    "clipboard-copy": "^4.0.1",
+    "globby": "^11.0.2",
+    "lodash-es": "^4.17.20",
+    "markdown-it": "^12.0.4",
+    "minimist": "^1.2.5",
+    "kolorist": "^1.5.0",
+    "yaml": "^2.0.0-6",
+    "vitepress": "^0.15.5"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.12",
+    "@types/node": "^14.14.39",
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
+    "@typescript-eslint/parser": "^4.17.0",
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "jest": "^26.1.0",
+    "lint-staged": "^10.5.4",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.2.1",
+    "ts-jest": "^26.3.0",
+    "ts-node": "^9.1.1",
+    "tsup": "^4.11.1",
+    "typescript": "^4.2.3",
+    "yorkie": "^2.0.0"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged",
+    "commit-msg": "node scripts/verify-commit.js"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,vue}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
