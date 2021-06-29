@@ -1,17 +1,17 @@
 const { compileTemplate, TemplateCompiler } = require('@vue/compiler-sfc')
 
-function stripScript (content) {
+function stripScript(content) {
   const result = content.match(/<(script)>([\s\S]+)<\/\1>/)
   return result && result[2] ? result[2].trim() : ''
 }
 
-function stripStyle (content) {
+function stripStyle(content) {
   const result = content.match(/<(style)\s*>([\s\S]+)<\/\1>/)
   return result && result[2] ? result[2].trim() : ''
 }
 
 // 编写例子时不一定有 template。所以采取的方案是剔除其他的内容
-function stripTemplate (content) {
+function stripTemplate(content) {
   content = content.trim()
   if (!content) {
     return content
@@ -19,13 +19,16 @@ function stripTemplate (content) {
   return content.replace(/<(script|style)[\s\S]+<\/\1>/g, '').trim()
 }
 
-function pad (source) {
-  return source.split(/\r?\n/).map(line => `  ${line}`).join('\n')
+function pad(source) {
+  return source
+    .split(/\r?\n/)
+    .map(line => `  ${line}`)
+    .join('\n')
 }
 
 const templateReplaceRegex = /<template>([\s\S]+)<\/template>/g
 
-function genInlineComponentText (template, script) {
+function genInlineComponentText(template, script) {
   let source = template
   if (templateReplaceRegex.test(source)) {
     source = source.replace(templateReplaceRegex, '$1')
@@ -35,8 +38,8 @@ function genInlineComponentText (template, script) {
     filename: 'inline-component', // TODO：这里有待调整
     compiler: TemplateCompiler,
     compilerOptions: {
-      mode: 'function',
-    },
+      mode: 'function'
+    }
   }
   const compiled = compileTemplate(finalOptions)
   // tips
@@ -49,12 +52,12 @@ function genInlineComponentText (template, script) {
   if (compiled.errors && compiled.errors.length) {
     console.error(
       `\n  Error compiling template:\n${pad(compiled.source)}\n` +
-      compiled.errors.map(e => `  - ${e}`).join('\n') +
-      '\n',
+        compiled.errors.map(e => `  - ${e}`).join('\n') +
+        '\n'
     )
   }
   let demoComponentContent = `
-    ${(compiled.code).replace('return function render', 'function render')}
+    ${compiled.code.replace('return function render', 'function render')}
   `
   // todo: 这里采用了硬编码有待改进
   script = script.trim()
@@ -80,5 +83,5 @@ module.exports = {
   stripScript,
   stripStyle,
   stripTemplate,
-  genInlineComponentText,
+  genInlineComponentText
 }

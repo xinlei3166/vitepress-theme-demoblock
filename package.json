@@ -41,7 +41,6 @@
   },
   "dependencies": {
     "camelcase": "^6.2.0",
-    "clipboard-copy": "^4.0.1",
     "globby": "^11.0.2",
     "kolorist": "^1.5.0",
     "lodash-es": "^4.17.20",

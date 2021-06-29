@@ -1,9 +1,4 @@
-const {
-  stripScript,
-  stripStyle,
-  stripTemplate,
-  genInlineComponentText,
-} = require('./utils')
+const { stripScript, stripStyle, stripTemplate, genInlineComponentText } = require('./utils')
 
 module.exports = function (content) {
   if (!content) {
@@ -15,16 +10,15 @@ module.exports = function (content) {
   const endTagLen = endTag.length
 
   let componenetsString = '' // 组件引用代码
-  let templateArr = [] // 模板输出内容
-  let styleArr = [] // 样式输出内容
+  const templateArr = [] // 模板输出内容
+  const styleArr = [] // 样式输出内容
   let id = 0 // demo 的 id
   let start = 0 // 字符串开始位置
   let commentStart = content.indexOf(startTag)
   let commentEnd = content.indexOf(endTag, commentStart + startTagLen)
   while (commentStart !== -1 && commentEnd !== -1) {
     templateArr.push(content.slice(start, commentStart))
-    const commentContent = content.slice(commentStart + startTagLen,
-      commentEnd)
+    const commentContent = content.slice(commentStart + startTagLen, commentEnd)
     const html = stripTemplate(commentContent)
     const script = stripScript(commentContent)
     const style = stripStyle(commentContent)
@@ -32,8 +26,7 @@ module.exports = function (content) {
     const demoComponentName = `render-demo-${id}` // 示例代码组件名称
     templateArr.push(`<${demoComponentName} />`)
     styleArr.push(style)
-    componenetsString += `${JSON.stringify(
-      demoComponentName)}: ${demoComponentContent},`
+    componenetsString += `${JSON.stringify(demoComponentName)}: ${demoComponentContent},`
     // 重新计算下一次的位置
     id++
     start = commentEnd + endTagLen
@@ -53,7 +46,8 @@ module.exports = function (content) {
         }
       }
     </script>`
-  } else if (content.indexOf('<script>') === 0) { // 硬编码，有待改善
+  } else if (content.indexOf('<script>') === 0) {
+    // 硬编码，有待改善
     start = content.indexOf('</script>') + '</script>'.length
     pageScript = content.slice(0, start)
   }
@@ -68,6 +62,6 @@ module.exports = function (content) {
   return {
     template: templateArr.join(''),
     script: pageScript,
-    style: styleString,
+    style: styleString
   }
 }
