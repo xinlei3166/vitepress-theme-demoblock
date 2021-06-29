@@ -1,3 +1,12 @@
+## [1.0.3](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.0.2...v1.0.3) (2021-06-29)
+
+
+### Features
+
+* theme index.css ([b9ec799](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/b9ec7998c12f4129d1a68ef8dde66ad221e310b7))
+
+
+
 ## [1.0.2](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.0.1...v1.0.2) (2021-06-29)
 
 
