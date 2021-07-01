@@ -1,3 +1,12 @@
+## [1.0.5](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.0.4...v1.0.5) (2021-07-01)
+
+
+### Features
+
+* support i18n ([af7cc96](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/af7cc969e3dde91e6286a265353aa2c9bda270cc))
+
+
+
 ## [1.0.4](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.0.3...v1.0.4) (2021-06-29)
 
 
