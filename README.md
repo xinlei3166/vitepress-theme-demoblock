@@ -68,3 +68,25 @@ package.json配置命令scripts，vitepress-rc用来注册组件(--docsDir 指�
 
 
 
+## 多语言
+
+.vitepress/config.js文件中增加demoblock字段来支持多语言 (默认中文)
+
+```js
+themeConfig: {
+  // demoblock locales
+  demoblock: {
+    '/': {
+      'hide-text': 'Hide',
+        'show-text': 'Expand',
+          'copy-button-text': 'Copy'
+    },
+      '/zh': {
+        'hide-text': '隐藏代码',
+          'show-text': '显示代码',
+            'copy-button-text': '复制代码片段'
+      }
+  }
+}
+```
+

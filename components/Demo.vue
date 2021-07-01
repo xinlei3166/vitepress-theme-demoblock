@@ -27,7 +27,7 @@
       </transition>
       <div class="control-button-wrap">
         <transition name="text-slide">
-          <span v-show="isExpanded" class="control-button copy-code" @click.stop="onCopy">复制代码片段</span>
+          <span v-show="isExpanded" class="control-button copy-button" @click.stop="onCopy">{{ locale && locale['copy-button-text'] }}</span>
         </transition>
       </div>
     </div>
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { useRoute } from 'vitepress'
+import { useRoute, useData } from 'vitepress'
 import { ref, reactive, computed, watch, onMounted, onBeforeUnmount, nextTick, getCurrentInstance } from 'vue'
 import { throttle } from 'lodash-es'
 import clipboardCopy from '../demoblock/clipboard-copy'
@@ -48,27 +48,39 @@ export default {
     sourceCode: String
   },
   setup (props) {
-    const route = useRoute()
-    const pathArr = ref(route.path.split('/'))
-    const component = computed(() => pathArr.value[pathArr.value.length - 1].split('.')[0])
-    watch(() => route.path, (path) => {
-      pathArr.value = path.split('/')
-    })
-    const blockClass = computed(() => {
-      return `demo-${component.value}`
-    })
-
     const hover = ref(false)
     const fixedControl = ref(false)
     const isExpanded = ref(false)
-    const controlText = computed(() => {
-      return isExpanded.value ? '隐藏代码' : '显示代码'
-    })
     // const codepen = reactive({
     //   html: stripTemplate(props.sourceCode),
     //   script: stripScript(props.sourceCode),
     //   style: stripStyle(props.sourceCode)
     // })
+
+    const data = useData()
+    const route = useRoute()
+
+    const pathArr = ref(route.path.split('/'))
+    const component = computed(() => pathArr.value[pathArr.value.length - 1].split('.')[0])
+    watch(() => route.path, (path) => {
+      pathArr.value = path.split('/')
+    })
+
+    const blockClass = computed(() => {
+      return `demo-${component.value}`
+    })
+
+    const locale = computed(() => {
+      return data.theme.value.demoblock[data.localePath.value] ?? {
+        'hide-text': '隐藏代码',
+        'show-text': '显示代码',
+        'copy-button-text': '复制代码片段'
+      }
+    })
+
+    const controlText = computed(() => {
+      return isExpanded.value ? locale.value['hide-text'] : locale.value['show-text']
+    })
 
     // template refs
     const highlight = ref(null)
@@ -128,7 +140,7 @@ export default {
       removeScrollHandler()
     })
 
-    return { blockClass, hover, fixedControl, isExpanded, controlText, highlight, description, meta, control, onCopy }
+    return { blockClass, hover, fixedControl, isExpanded, locale, controlText, highlight, description, meta, control, onCopy }
   }
 }
 </script>

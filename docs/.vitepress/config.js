@@ -7,11 +7,35 @@ module.exports = {
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }]
   ],
   base: base,
+  // locales: {
+  //   '/': { lang: 'en-US' },
+  //   '/zh/': { lang: 'zh-CN'},
+  // },
   themeConfig: {
     repo: 'xinlei3166/vitepress-theme-demoblock',
     logo: '/logo.svg',
     docsDir: 'docs',
     docsBranch: 'master',
+
+    // locales
+    // locales: {
+    //   '/': { label: 'English' },
+    //   '/zh/' : { label: '简体中文' },
+    // },
+
+    // demoblock locales
+    demoblock: {
+      '/': {
+        'hide-text': 'Hide',
+        'show-text': 'Expand',
+        'copy-button-text': 'Copy'
+      },
+      '/zh': {
+        'hide-text': '隐藏代码',
+        'show-text': '显示代码',
+        'copy-button-text': '复制代码片段'
+      }
+    },
 
     // nav
     nav: [
