@@ -1,7 +1,15 @@
-const { compileTemplate, TemplateCompiler } = require('@vue/compiler-sfc')
+const { compileTemplate, TemplateCompiler, compileScript, parse } = require('@vue/compiler-sfc')
 
+const scriptSetupRE = /<\s*script[^>]*\bsetup\b[^>]*/
 function stripScript(content) {
-  const result = content.match(/<(script)>([\s\S]+)<\/\1>/)
+  const result = content.match(/<(script)(?:.* \bsetup\b)?>([\s\S]+)<\/\1>/)
+  if (scriptSetupRE.test(content)) {
+    let scriptContent = result && result[2] ? result[2].trim() : ''
+    scriptContent = '<script setup>' + scriptContent + '</script>'
+    const { descriptor } = parse(scriptContent)
+    const { content } = compileScript(descriptor, { refSugar: true })
+    return content
+  }
   return result && result[2] ? result[2].trim() : ''
 }
 

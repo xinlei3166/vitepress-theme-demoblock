@@ -15,16 +15,10 @@
   </div>
 </template>
 
-<script>
-import { ref, defineComponent } from 'vue'
+<script setup>
+import { ref } from 'vue'
 
-export default defineComponent({
-  setup() {
-    const title = ref('vitepress-theme-demoblock')
-
-    return { title }
-  }
-})
+const title = ref('vitepress-theme-demoblock')
 </script>
 
 <style>
