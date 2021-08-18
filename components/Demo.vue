@@ -69,9 +69,9 @@ export default {
     const blockClass = computed(() => {
       return `demo-${component.value}`
     })
-
+    console.log(data)
     const locale = computed(() => {
-      return data.theme.value.demoblock[data.localePath.value] ?? {
+      return data.theme.value.demoblock?.[data.localePath.value] ?? {
         'hide-text': '隐藏代码',
         'show-text': '显示代码',
         'copy-button-text': '复制代码片段'
