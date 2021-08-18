@@ -1,4 +1,9 @@
-## [1.0.8](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.0.7...v1.0.8) (2021-08-18)
+## [1.0.9](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.0.7...v1.0.9) (2021-08-18)
+
+
+### Features
+
+* support vue script setup syntax ([43083a2](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/43083a21a1863a05523b84681cb973c816d602c1))
 
 
 
