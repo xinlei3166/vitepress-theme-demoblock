@@ -1,3 +1,13 @@
+## [1.0.10](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.0.9...v1.0.10) (2021-08-18)
+
+
+### Bug Fixes
+
+* when demoblock i18n is empty, the component reports an error ([db90f4e](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/db90f4ed88cd1252886d9b96dc0e125da0c233e8))
+* when demoblock i18n is empty, the component reports an error ([f84a2e1](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/f84a2e14957846983f27d1652655a62a6f4d8425))
+
+
+
 ## [1.0.9](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.0.7...v1.0.9) (2021-08-18)
 
 
