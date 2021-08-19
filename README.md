@@ -37,6 +37,22 @@ markdown: {
 ```
 
 
+markdown 中的vue代码被编译为了 vue 函数组件，需要把 import 转换为 require，这里可附加一些其他的转换。
+```js
+markdown: {
+  config: (md) => {
+    const { demoBlockPlugin } = require('vitepress-theme-demoblock')
+    md.use(demoBlockPlugin, {
+      scriptImports: [
+        { searchValue: /const ({ defineComponent as _defineComponent }) = Vue/g,
+          replaceValue: 'const { defineComponent: _defineComponent } = Vue'
+        }
+      ]
+    })
+  }
+}
+```
+
 
 .vitepress/theme/index.js中使用vitepress-theme-demoblock主题，并注册组件(包含主题中默认的组件)。
 
@@ -77,15 +93,15 @@ themeConfig: {
   // demoblock locales
   demoblock: {
     '/': {
-      'hide-text': 'Hide',
-        'show-text': 'Expand',
-          'copy-button-text': 'Copy'
+      'hide-text': 'Hide', 
+      'show-text': 'Expand',
+      'copy-button-text': 'Copy'
     },
-      '/zh': {
-        'hide-text': '隐藏代码',
-          'show-text': '显示代码',
-            'copy-button-text': '复制代码片段'
-      }
+    '/zh': {
+      'hide-text': '隐藏代码',
+      'show-text': '显示代码',
+      'copy-button-text': '复制代码片段'
+    }
   }
 }
 ```

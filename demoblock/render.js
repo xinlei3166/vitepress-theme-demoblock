@@ -1,6 +1,6 @@
 const { stripScript, stripStyle, stripTemplate, genInlineComponentText } = require('./utils')
 
-module.exports = function (content) {
+module.exports = function (content, options) {
   if (!content) {
     return content
   }
@@ -22,7 +22,7 @@ module.exports = function (content) {
     const html = stripTemplate(commentContent)
     const script = stripScript(commentContent, `render-demo-${id}-script`)
     const style = stripStyle(commentContent)
-    const demoComponentContent = genInlineComponentText(html, script) // 示例组件代码内容
+    const demoComponentContent = genInlineComponentText(html, script, options) // 示例组件代码内容
     const demoComponentName = `render-demo-${id}` // 示例代码组件名称
     templateArr.push(`<${demoComponentName} />`)
     styleArr.push(style)

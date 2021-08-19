@@ -70,7 +70,13 @@ module.exports = {
 
     config: (md) => {
       const { demoBlockPlugin } = require('../../demoblock')
-      md.use(demoBlockPlugin)
+      md.use(demoBlockPlugin, {
+        scriptImports: [
+          { searchValue: /const ({ defineComponent as _defineComponent }) = Vue/g,
+            replaceValue: 'const { defineComponent: _defineComponent } = Vue'
+          }
+        ]
+      })
     }
   }
 }
