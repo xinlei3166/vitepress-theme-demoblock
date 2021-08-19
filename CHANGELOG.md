@@ -1,3 +1,13 @@
+# [1.1.0](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.0.10...v1.1.0) (2021-08-19)
+
+
+### Features
+
+* support custom scriptImports and custom lang ([68b2f38](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/68b2f38f97bc3123f7171ecb92fe34041431301b))
+* vitepress-theme-demoblock@1.1.0, support script setup and typescript ([09cfd3a](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/09cfd3a04d7074cea0fd43839f6173a94b6e1a63))
+
+
+
 ## [1.0.10](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.0.9...v1.0.10) (2021-08-18)
 
 
