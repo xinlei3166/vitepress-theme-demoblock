@@ -20,7 +20,7 @@ module.exports = function (content) {
     templateArr.push(content.slice(start, commentStart))
     const commentContent = content.slice(commentStart + startTagLen, commentEnd)
     const html = stripTemplate(commentContent)
-    const script = stripScript(commentContent)
+    const script = stripScript(commentContent, `render-demo-${id}-script`)
     const style = stripStyle(commentContent)
     const demoComponentContent = genInlineComponentText(html, script) // 示例组件代码内容
     const demoComponentName = `render-demo-${id}` // 示例代码组件名称
@@ -37,7 +37,7 @@ module.exports = function (content) {
   // todo: 优化这段逻辑
   let pageScript = ''
   if (componenetsString) {
-    pageScript = `<script>
+    pageScript = `<script lang="ts">
       import * as Vue from 'vue'
       export default {
         name: 'component-doc',

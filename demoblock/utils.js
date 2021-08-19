@@ -1,16 +1,18 @@
 const { compileTemplate, TemplateCompiler, compileScript, parse } = require('@vue/compiler-sfc')
 
 const scriptSetupRE = /<\s*script[^>]*\bsetup\b[^>]*/
-function stripScript(content) {
-  const result = content.match(/<(script)(?:.* \bsetup\b)?>([\s\S]+)<\/\1>/)
-  if (scriptSetupRE.test(content)) {
-    let scriptContent = result && result[2] ? result[2].trim() : ''
-    scriptContent = '<script setup>' + scriptContent + '</script>'
-    const { descriptor } = parse(scriptContent)
-    const { content } = compileScript(descriptor, { refSugar: true })
-    return content
+function stripScript(content, id) {
+  const result = content.match(/<(script)(?:.* \bsetup\b)?[^>]*>([\s\S]+)<\/\1>/)
+  const source = result && result[0] ? result[0].trim() : ''
+  if (source) {
+    const { descriptor } = parse(source)
+    const { content: scriptContent } = compileScript(descriptor, {
+      refSugar: true,
+      id
+    })
+    return scriptContent
   }
-  return result && result[2] ? result[2].trim() : ''
+  return source
 }
 
 function stripStyle(content) {
@@ -73,6 +75,10 @@ function genInlineComponentText(template, script) {
     script = script
       .replace(/export\s+default/, 'const democomponentExport =')
       .replace(/import ({.*}) from 'vue'/g, (s, s1) => `const ${s1} = Vue`)
+      .replace(
+        /const ({ defineComponent as _defineComponent }) = Vue/g,
+        'const { defineComponent: _defineComponent } = Vue'
+      )
   } else {
     script = 'const democomponentExport = {}'
   }
