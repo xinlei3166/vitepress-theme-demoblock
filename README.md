@@ -17,8 +17,8 @@ Vitepress-Theme-Demoblock 参考了 [Element UI](https://github.com/element-plus
 ## 安装
 
 ```bash
-npm install vitepress-theme-demoblock
-yarn add vitepress-theme-demoblock
+npm install vitepress-theme-demoblock --save-dev
+yarn add -D vitepress-theme-demoblock
 ```
 
 
