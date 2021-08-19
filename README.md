@@ -17,8 +17,8 @@ Vitepress-Theme-Demoblock 参考了 [Element UI](https://github.com/element-plus
 ## 安装
 
 ```bash
-npm install vitepress-theme-demoblock
-yarn add vitepress-theme-demoblock
+npm install vitepress-theme-demoblock --save-dev
+yarn add -D vitepress-theme-demoblock
 ```
 
 
@@ -95,12 +95,14 @@ themeConfig: {
     '/': {
       'hide-text': 'Hide', 
       'show-text': 'Expand',
-      'copy-button-text': 'Copy'
+      'copy-button-text': 'Copy',
+      'copy-success-text': 'Copy success'
     },
     '/zh': {
       'hide-text': '隐藏代码',
       'show-text': '显示代码',
-      'copy-button-text': '复制代码片段'
+      'copy-button-text': '复制代码片段',
+      'copy-success-text': '复制成功'
     }
   }
 }

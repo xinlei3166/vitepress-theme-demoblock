@@ -1,8 +1,8 @@
 <template>
   <div
-      :class="['demo-block', blockClass, customClass ? customClass : '', { hover } ]"
-      @mouseenter="hover=true"
-      @mouseleave="hover=false">
+    :class="['demo-block', blockClass, customClass ? customClass : '', { hover } ]"
+    @mouseenter="hover=true"
+    @mouseleave="hover=false">
     <div class="source">
       <slot />
     </div>
@@ -27,7 +27,7 @@
       </transition>
       <div class="control-button-wrap">
         <transition name="text-slide">
-          <span v-show="isExpanded" class="control-button copy-button" @click.stop="onCopy">{{ locale && locale['copy-button-text'] }}</span>
+          <span v-show="isExpanded" class="control-button copy-button" @click.stop="onCopy">{{ copyText }}</span>
         </transition>
       </div>
     </div>
@@ -51,6 +51,7 @@ export default {
     const hover = ref(false)
     const fixedControl = ref(false)
     const isExpanded = ref(false)
+    const isShowTip = ref(false)
     // const codepen = reactive({
     //   html: stripTemplate(props.sourceCode),
     //   script: stripScript(props.sourceCode),
@@ -73,8 +74,13 @@ export default {
       return data.theme.value.demoblock?.[data.localePath.value] ?? {
         'hide-text': '隐藏代码',
         'show-text': '显示代码',
-        'copy-button-text': '复制代码片段'
+        'copy-button-text': '复制代码片段',
+        'copy-success-text': '复制成功'
       }
+    })
+
+    const copyText = computed(() => {
+      return isShowTip.value ? locale.value['copy-success-text'] : locale.value['copy-button-text']
     })
 
     const controlText = computed(() => {
@@ -107,7 +113,10 @@ export default {
 
     const onCopy = () => {
       clipboardCopy(props.sourceCode)
-      alert('复制成功')
+      isShowTip.value = true
+      setTimeout(() => {
+        isShowTip.value = false
+      }, 2000)
     }
 
     const goCodepen = () => {}
@@ -139,7 +148,7 @@ export default {
       removeScrollHandler()
     })
 
-    return { blockClass, hover, fixedControl, isExpanded, locale, controlText, highlight, description, meta, control, onCopy }
+    return { blockClass, hover, fixedControl, isExpanded, locale, controlText, copyText, highlight, description, meta, control, onCopy }
   }
 }
 </script>
@@ -160,6 +169,7 @@ export default {
   box-sizing: border-box;
   padding: 24px;
   transition: .2s;
+  overflow: auto;
 }
 
 .meta {
