@@ -75,12 +75,12 @@ export default {
         'hide-text': '隐藏代码',
         'show-text': '显示代码',
         'copy-button-text': '复制代码片段',
-        'copy-button-text-success': '复制成功！'
+        'copy-success-text': '复制成功'
       }
     })
 
     const copyText = computed(() => {
-      return isShowTip.value ? locale.value['copy-button-text-success'] : locale.value['copy-button-text']
+      return isShowTip.value ? locale.value['copy-success-text'] : locale.value['copy-button-text']
     })
 
     const controlText = computed(() => {
