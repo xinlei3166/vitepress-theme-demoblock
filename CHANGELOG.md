@@ -1,3 +1,14 @@
+## [1.1.1](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.1.0...v1.1.1) (2021-08-19)
+
+
+### Features
+
+* code demo copy success text, update README.md ([9359f92](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/9359f924ee95c849e8e97bf2932c01a4ad668842))
+* 新增了复制成功文案 ([e3ff5b7](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/e3ff5b7e5d76535ce3af0c4ebf06bd007c4613dd))
+* 新增了复制成功文案以及为demo展示增加溢出隐藏 ([2b23d2b](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/2b23d2b028e3c08364476926c59f8891733992fe))
+
+
+
 # [1.1.0](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.0.10...v1.1.0) (2021-08-19)
 
 
