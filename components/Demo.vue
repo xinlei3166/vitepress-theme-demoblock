@@ -1,33 +1,43 @@
 <template>
   <div
-    :class="['demo-block', blockClass, customClass ? customClass : '', { hover } ]"
-    @mouseenter="hover=true"
-    @mouseleave="hover=false">
+    :class="['demo-block', blockClass, customClass ? customClass : '', { hover }]"
+    @mouseenter="hover = true"
+    @mouseleave="hover = false"
+  >
     <div class="source">
       <slot />
     </div>
-    <div class="meta" ref="meta">
-      <div v-if="$slots.description" class="description" ref="description">
-        <slot name="description"/>
+    <div ref="meta" class="meta">
+      <div v-if="$slots.description" ref="description" class="description">
+        <slot name="description" />
       </div>
-      <div class="highlight" ref="highlight">
-        <slot name="highlight"/>
+      <div ref="highlight" class="highlight">
+        <slot name="highlight" />
       </div>
     </div>
     <div
-        class="demo-block-control"
-        ref="control"
-        :class="{ 'is-fixed': fixedControl }"
-        @click="isExpanded=!isExpanded">
+      ref="control"
+      class="demo-block-control"
+      :class="{ 'is-fixed': fixedControl }"
+      @click="isExpanded = !isExpanded"
+    >
       <transition name="arrow-slide">
-        <i :class="['iconfont', 'control-icon', { 'icon-caret-down': !isExpanded, 'icon-caret-up': isExpanded, 'hovering': hover }]"></i>
+        <i
+          :class="[
+            'iconfont',
+            'control-icon',
+            { 'icon-caret-down': !isExpanded, 'icon-caret-up': isExpanded, hovering: hover }
+          ]"
+        ></i>
       </transition>
       <transition name="text-slide">
         <span v-show="hover" class="control-text">{{ controlText }}</span>
       </transition>
       <div class="control-button-wrap">
         <transition name="text-slide">
-          <span v-show="isExpanded" class="control-button copy-button" @click.stop="onCopy">{{ copyText }}</span>
+          <span v-show="isExpanded" class="control-button copy-button" @click.stop="onCopy">
+            {{ copyText }}
+          </span>
         </transition>
       </div>
     </div>
@@ -36,7 +46,16 @@
 
 <script>
 import { useRoute, useData } from 'vitepress'
-import { ref, reactive, computed, watch, onMounted, onBeforeUnmount, nextTick, getCurrentInstance } from 'vue'
+import {
+  ref,
+  reactive,
+  computed,
+  watch,
+  onMounted,
+  onBeforeUnmount,
+  nextTick,
+  getCurrentInstance
+} from 'vue'
 import { throttle } from 'lodash-es'
 import clipboardCopy from '../demoblock/clipboard-copy'
 import { stripTemplate, stripScript, stripStyle } from '../demoblock/assist'
@@ -47,7 +66,7 @@ export default {
     customClass: String,
     sourceCode: String
   },
-  setup (props) {
+  setup(props) {
     const hover = ref(false)
     const fixedControl = ref(false)
     const isExpanded = ref(false)
@@ -63,20 +82,25 @@ export default {
 
     const pathArr = ref(route.path.split('/'))
     const component = computed(() => pathArr.value[pathArr.value.length - 1].split('.')[0])
-    watch(() => route.path, (path) => {
-      pathArr.value = path.split('/')
-    })
+    watch(
+      () => route.path,
+      path => {
+        pathArr.value = path.split('/')
+      }
+    )
 
     const blockClass = computed(() => {
       return `demo-${component.value}`
     })
     const locale = computed(() => {
-      return data.theme.value.demoblock?.[data.localePath.value] ?? {
-        'hide-text': '隐藏代码',
-        'show-text': '显示代码',
-        'copy-button-text': '复制代码片段',
-        'copy-success-text': '复制成功'
-      }
+      return (
+        data.theme.value.demoblock?.[data.localePath.value] ?? {
+          'hide-text': '隐藏代码',
+          'show-text': '显示代码',
+          'copy-button-text': '复制代码片段',
+          'copy-success-text': '复制成功'
+        }
+      )
     })
 
     const copyText = computed(() => {
@@ -104,7 +128,7 @@ export default {
       const { top, bottom, left } = meta.value.getBoundingClientRect()
       const innerHeight = window.innerHeight || document.body.clientHeight
       fixedControl.value = bottom > innerHeight && top + 44 <= innerHeight
-      control.value.style.left = fixedControl.value ? `${ left }px` : '0'
+      control.value.style.left = fixedControl.value ? `${left}px` : '0'
     }
     const scrollHandler = throttle(_scrollHandler, 200)
     const removeScrollHandler = () => {
@@ -116,13 +140,13 @@ export default {
       isShowTip.value = true
       setTimeout(() => {
         isShowTip.value = false
-      }, 2000)
+      }, 1300)
     }
 
     const goCodepen = () => {}
 
     watch(isExpanded, val => {
-      meta.value.style.height = val ? `${ codeAreaHeight.value + 1 }px` : '0'
+      meta.value.style.height = val ? `${codeAreaHeight.value + 1}px` : '0'
       if (!val) {
         fixedControl.value = false
         control.value.style.left = '0'
@@ -143,12 +167,24 @@ export default {
       })
     })
 
-
     onBeforeUnmount(() => {
       removeScrollHandler()
     })
 
-    return { blockClass, hover, fixedControl, isExpanded, locale, controlText, copyText, highlight, description, meta, control, onCopy }
+    return {
+      blockClass,
+      hover,
+      fixedControl,
+      isExpanded,
+      locale,
+      controlText,
+      copyText,
+      highlight,
+      description,
+      meta,
+      control,
+      onCopy
+    }
   }
 }
 </script>
@@ -158,17 +194,17 @@ export default {
   margin: 10px 0;
   border: solid 1px #ebebeb;
   border-radius: 3px;
-  transition: .2s;
+  transition: 0.2s;
 }
 
 .demo-block.hover {
-  box-shadow: 0 0 8px 0 rgba(232, 237, 250, .6), 0 2px 4px 0 rgba(232, 237, 250, .5);
+  box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6), 0 2px 4px 0 rgba(232, 237, 250, 0.5);
 }
 
 .source {
   box-sizing: border-box;
   padding: 24px;
-  transition: .2s;
+  transition: 0.2s;
   overflow: auto;
 }
 
@@ -177,7 +213,7 @@ export default {
   background-color: var(--code-bg-color);
   overflow: hidden;
   height: 0;
-  transition: height .2s;
+  transition: height 0.2s;
 }
 
 .description {
@@ -218,7 +254,7 @@ export default {
   display: inline-block;
   font-size: 16px;
   line-height: 44px;
-  transition: .3s;
+  transition: 0.3s;
 }
 .demo-block-control .control-icon.hovering {
   transform: translateX(-40px);
@@ -230,7 +266,7 @@ export default {
   font-size: 14px;
   line-height: 44px;
   font-weight: 500;
-  transition: .3s;
+  transition: 0.3s;
   display: inline-block;
 }
 
