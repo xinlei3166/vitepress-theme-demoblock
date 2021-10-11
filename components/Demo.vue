@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="demoBlock"
     :class="['demo-block', blockClass, customClass ? customClass : '', { hover }]"
     @mouseenter="hover = true"
     @mouseleave="hover = false"
@@ -116,6 +117,7 @@ export default {
     const description = ref(null)
     const meta = ref(null)
     const control = ref(null)
+    const demoBlock = ref(null)
 
     const codeAreaHeight = computed(() => {
       if (description.value) {
@@ -129,10 +131,12 @@ export default {
       const innerHeight = window.innerHeight || document.body.clientHeight
       fixedControl.value = bottom > innerHeight && top + 44 <= innerHeight
       control.value.style.left = fixedControl.value ? `${left}px` : '0'
+      control.value.style.width = `${demoBlock.value.offsetWidth}px`
     }
     const scrollHandler = throttle(_scrollHandler, 200)
     const removeScrollHandler = () => {
       window.removeEventListener('scroll', scrollHandler)
+      window.removeEventListener('resize', scrollHandler)
     }
 
     const onCopy = () => {
@@ -155,6 +159,7 @@ export default {
       }
       setTimeout(() => {
         window.addEventListener('scroll', scrollHandler)
+        window.addEventListener('resize', scrollHandler)
         _scrollHandler()
       }, 300)
     })
@@ -183,7 +188,8 @@ export default {
       description,
       meta,
       control,
-      onCopy
+      onCopy,
+      demoBlock
     }
   }
 }
@@ -245,7 +251,7 @@ export default {
 .demo-block-control.is-fixed {
   position: fixed;
   bottom: 0;
-  width: calc(100% - 320px - 48px - 200px - 1px);
+  /* width: calc(100% - 320px - 48px - 200px - 1px); */
   border-right: solid 1px #eaeefb;
   z-index: 1;
 }
@@ -282,7 +288,6 @@ export default {
 }
 
 .demo-block-control .control-button {
-  padding: 14px 0;
   color: var(--c-brand);
   font-size: 14px;
   font-weight: 500;
@@ -290,7 +295,7 @@ export default {
 }
 
 .demo-block-control .control-button-wrap {
-  line-height: 44px;
+  line-height: 43px;
   position: absolute;
   top: 0;
   right: 0;
