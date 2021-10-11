@@ -288,7 +288,6 @@ export default {
 }
 
 .demo-block-control .control-button {
-  padding: 14px 0;
   color: var(--c-brand);
   font-size: 14px;
   font-weight: 500;
@@ -296,7 +295,7 @@ export default {
 }
 
 .demo-block-control .control-button-wrap {
-  line-height: 44px;
+  line-height: 43px;
   position: absolute;
   top: 0;
   right: 0;
