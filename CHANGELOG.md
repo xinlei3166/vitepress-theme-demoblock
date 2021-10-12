@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.2.0...v1.2.1) (2021-10-12)
+
+
+### Features
+
+* split style files ([3780f30](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/3780f3099b16073fd0aa31baed44ce0ebe9ffcf5))
+
+
+
 # [1.2.0](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.1.1...v1.2.0) (2021-10-12)
 
 
