@@ -1,3 +1,18 @@
+# [1.2.0](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.1.1...v1.2.0) (2021-10-12)
+
+
+### Bug Fixes
+
+* **Demo:** 修复窗口缩放时，底部 demo-block-control 的宽度和位置不准确问题 ([d039003](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/d0390031e88cc5d418ba10bcebc5bd6e71567b98))
+
+
+### Features
+
+* demo block control style ([3106b13](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/3106b1384406a060a634f753f4a387a9cb814bef))
+* support css preprocessors ([c8a335e](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/c8a335e9ef00313695c0fa45fbd81e532d74132d))
+
+
+
 ## [1.1.1](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.1.0...v1.1.1) (2021-08-19)
 
 
