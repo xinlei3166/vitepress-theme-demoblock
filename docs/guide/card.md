@@ -27,22 +27,21 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style lang="less">
 .card-wrap {
   text-align: center;
-}
-
-.card {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 500;
-  color: var(--c-brand);
-  background: #fff;
-  border: 1px solid var(--c-brand);
-  height: 80px;
-  width: 600px;
+  .card {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--c-brand);
+    background: #fff;
+    border: 1px solid var(--c-brand);
+    height: 80px;
+    width: 600px;
+  }
 }
 </style>
 ```
@@ -73,22 +72,21 @@ interface IObject {
 const title = ref<any>('vitepress-theme-demoblock')
 </script>
 
-<style>
+<style lang="less">
 .card-wrap {
   text-align: center;
-}
-
-.card {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 500;
-  color: var(--c-brand);
-  background: #fff;
-  border: 1px solid var(--c-brand);
-  height: 80px;
-  width: 600px;
+  .card {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--c-brand);
+    background: #fff;
+    border: 1px solid var(--c-brand);
+    height: 80px;
+    width: 600px;
+  }
 }
 </style>
 ```

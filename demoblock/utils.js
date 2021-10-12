@@ -1,6 +1,5 @@
 const { compileTemplate, TemplateCompiler, compileScript, parse } = require('@vue/compiler-sfc')
 
-const scriptSetupRE = /<\s*script[^>]*\bsetup\b[^>]*/
 function stripScript(content, id) {
   const result = content.match(/<(script)(?:.* \bsetup\b)?[^>]*>([\s\S]+)<\/\1>/)
   const source = result && result[0] ? result[0].trim() : ''
@@ -16,7 +15,7 @@ function stripScript(content, id) {
 }
 
 function stripStyle(content) {
-  const result = content.match(/<(style)\s*>([\s\S]+)<\/\1>/)
+  const result = content.match(/<(style)[^>]*>([\s\S]+)<\/\1>/)
   return result && result[2] ? result[2].trim() : ''
 }
 

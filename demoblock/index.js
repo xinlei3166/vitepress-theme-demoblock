@@ -52,8 +52,8 @@ const codePlugin = (md, options) => {
 }
 
 const renderDemoBlock = require('./render')
-const scriptRegexp = /^.*(<script>.*<\/script>).*$/s
-const styleRegexp = /^.*(<style>.*<\/style>).*$/s
+const scriptRegexp = /^.*(<script[^>]*>.*<\/script>).*$/s
+const styleRegexp = /^.*(<style[^>]*>.*<\/style>).*$/s
 
 const renderPlugin = (md, options) => {
   const render = md.render

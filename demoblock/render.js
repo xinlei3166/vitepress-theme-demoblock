@@ -11,7 +11,7 @@ module.exports = function (content, options) {
 
   let componenetsString = '' // 组件引用代码
   const templateArr = [] // 模板输出内容
-  const styleArr = [] // 样式输出内容
+  let styleArr = [] // 样式输出内容
   let id = 0 // demo 的 id
   let start = 0 // 字符串开始位置
   let commentStart = content.indexOf(startTag)
@@ -52,9 +52,15 @@ module.exports = function (content, options) {
     pageScript = content.slice(0, start)
   }
   // 合并 style 内容
+  styleArr = [...new Set(styleArr)]
   let styleString = ''
+  const preprocessors = ['scss', 'sass', 'less', 'stylus']
+  const _style = preprocessors.includes(options.cssPreprocessor)
+    ? `style lang="${options.cssPreprocessor}"`
+    : 'style'
+  // 支持css预处理器
   if (styleArr && styleArr.length > 0) {
-    styleString = `<style>${styleArr.join('')}</style>`
+    styleString = `<${_style}>${styleArr.join('')}</style>`
   } else {
     styleString = `<style></style>`
   }

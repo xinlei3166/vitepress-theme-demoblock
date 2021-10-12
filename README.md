@@ -36,6 +36,18 @@ markdown: {
 }
 ```
 
+markdown 中的vue代码包含的style内容，会被组合成一个style统一处理，如果需要使用css预处理器，需要提前指定并且手动安装使用的css预处理器。
+```js
+markdown: {
+  config: (md) => {
+    const { demoBlockPlugin } = require('vitepress-theme-demoblock')
+    md.use(demoBlockPlugin, {
+      cssPreprocessor: 'less'
+    })
+  }
+}
+```
+
 
 markdown 中的vue代码被编译为了 vue 函数组件，需要把 import 转换为 require，这里可附加一些其他的转换。
 ```js
