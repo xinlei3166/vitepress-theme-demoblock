@@ -57,7 +57,7 @@ import {
   nextTick,
   getCurrentInstance
 } from 'vue'
-import { throttle } from 'lodash-es'
+import { throttle } from '../demoblock/throttle'
 import clipboardCopy from '../demoblock/clipboard-copy'
 import { stripTemplate, stripScript, stripStyle } from '../demoblock/assist'
 
