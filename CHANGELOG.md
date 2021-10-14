@@ -1,3 +1,12 @@
+## [1.2.2](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.2.1...v1.2.2) (2021-10-14)
+
+
+### Features
+
+* remove lodash-es, Optimize package volume, reduce first load time ([c7956d9](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/c7956d9c5a2852c2d277e9cd081b0648ef4b9f9e))
+
+
+
 ## [1.2.1](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.2.0...v1.2.1) (2021-10-12)
 
 
