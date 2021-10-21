@@ -24,8 +24,7 @@
     </div>
     <div
       ref="control"
-      class="demo-block-control"
-      :class="{ 'is-fixed': fixedControl }"
+      :class="['demo-block-control', { 'is-fixed': fixedControl }]"
       @click="isExpanded = !isExpanded"
     >
       <transition name="arrow-slide">
@@ -139,6 +138,9 @@ export default {
       control.value.style.left = fixedControl.value ? `${left}px` : '0'
       const dv = fixedControl.value ? 1 : 2
       control.value.style.width = `${demoBlock.value.offsetWidth - dv}px`
+      if (fixedControl.value && !control.value.classList.contains('.is-fixed')) {
+        control.value.classList.add('is-fixed')
+      }
     }
     const scrollHandler = throttle(_scrollHandler, 200)
     const removeScrollHandler = () => {
