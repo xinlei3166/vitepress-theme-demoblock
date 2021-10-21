@@ -1,3 +1,12 @@
+## [1.2.3](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.2.2...v1.2.3) (2021-10-21)
+
+
+### Bug Fixes
+
+* **Demo:** demo-block-control样式问题；代码展开/收起的操作区未遮挡语言的问题 ([a6f0e55](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/a6f0e554aeba95e01cd02ea4d35db1f5d8319129)), closes [#8](https://github.com/xinlei3166/vitepress-theme-demoblock/issues/8) [#9](https://github.com/xinlei3166/vitepress-theme-demoblock/issues/9)
+
+
+
 ## [1.2.2](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.2.1...v1.2.2) (2021-10-14)
 
 
