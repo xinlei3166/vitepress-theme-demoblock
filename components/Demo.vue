@@ -131,7 +131,8 @@ export default {
       const innerHeight = window.innerHeight || document.body.clientHeight
       fixedControl.value = bottom > innerHeight && top + 44 <= innerHeight
       control.value.style.left = fixedControl.value ? `${left}px` : '0'
-      control.value.style.width = `${demoBlock.value.offsetWidth}px`
+      const dv = fixedControl.value ? 1 : 2
+      control.value.style.width = `${demoBlock.value.offsetWidth - dv}px`
     }
     const scrollHandler = throttle(_scrollHandler, 200)
     const removeScrollHandler = () => {
@@ -154,6 +155,7 @@ export default {
       if (!val) {
         fixedControl.value = false
         control.value.style.left = '0'
+        control.value.style.width = `${demoBlock.value.offsetWidth - 2}px`
         removeScrollHandler()
         return
       }
@@ -253,7 +255,7 @@ export default {
   bottom: 0;
   /* width: calc(100% - 320px - 48px - 200px - 1px); */
   border-right: solid 1px #eaeefb;
-  z-index: 1;
+  z-index: 2;
 }
 
 .demo-block-control .control-icon {
