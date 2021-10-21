@@ -1,13 +1,7 @@
 <template>
   <div
     ref="demoBlock"
-    :class="[
-      'demo-block',
-      blockClass,
-      customClass ? customClass : '',
-      { hover },
-      { 'is-fixed': fixedControl }
-    ]"
+    :class="['demo-block', blockClass, customClass ? customClass : '', { hover }]"
     @mouseenter="hover = true"
     @mouseleave="hover = false"
   >
@@ -138,9 +132,6 @@ export default {
       control.value.style.left = fixedControl.value ? `${left}px` : '0'
       const dv = fixedControl.value ? 1 : 2
       control.value.style.width = `${demoBlock.value.offsetWidth - dv}px`
-      if (fixedControl.value && !control.value.classList.contains('.is-fixed')) {
-        control.value.classList.add('is-fixed')
-      }
     }
     const scrollHandler = throttle(_scrollHandler, 200)
     const removeScrollHandler = () => {
@@ -168,17 +159,6 @@ export default {
         return
       }
       setTimeout(() => {
-        const controls = [...document.querySelectorAll('.demo-block')].filter(x =>
-          x.classList.contains('is-fixed')
-        )
-        for (const c of controls) {
-          if (c.offsetTop > window.innerHeight - 44) {
-            const control = c.querySelector('.demo-block-control')
-            control.classList.remove('is-fixed')
-            control.style.left = '0'
-            c.classList.remove('is-fixed')
-          }
-        }
         window.addEventListener('scroll', scrollHandler)
         window.addEventListener('resize', scrollHandler)
         _scrollHandler()
@@ -270,7 +250,7 @@ export default {
 }
 
 .demo-block-control.is-fixed {
-  position: fixed;
+  position: sticky;
   bottom: 0;
   /* width: calc(100% - 320px - 48px - 200px - 1px); */
   border-right: solid 1px #eaeefb;
