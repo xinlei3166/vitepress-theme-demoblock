@@ -1,7 +1,13 @@
 <template>
   <div
     ref="demoBlock"
-    :class="['demo-block', blockClass, customClass ? customClass : '', { hover }]"
+    :class="[
+      'demo-block',
+      blockClass,
+      customClass ? customClass : '',
+      { hover },
+      { 'is-fixed': fixedControl }
+    ]"
     @mouseenter="hover = true"
     @mouseleave="hover = false"
   >
@@ -160,6 +166,17 @@ export default {
         return
       }
       setTimeout(() => {
+        const controls = [...document.querySelectorAll('.demo-block')].filter(x =>
+          x.classList.contains('is-fixed')
+        )
+        for (const c of controls) {
+          if (c.offsetTop > window.innerHeight - 44) {
+            const control = c.querySelector('.demo-block-control')
+            control.classList.remove('is-fixed')
+            control.style.left = '0'
+            c.classList.remove('is-fixed')
+          }
+        }
         window.addEventListener('scroll', scrollHandler)
         window.addEventListener('resize', scrollHandler)
         _scrollHandler()
