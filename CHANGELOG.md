@@ -1,3 +1,12 @@
+## [1.2.4](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.2.3...v1.2.4) (2021-10-21)
+
+
+### Bug Fixes
+
+* **Demo:** 已经有一个展开操作区固定在下方的情况下，再展开一个会出现重叠的现象 ([5dd9608](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/5dd9608a6c60e468fae841a18fc041e348f9a5ae)), closes [#10](https://github.com/xinlei3166/vitepress-theme-demoblock/issues/10)
+
+
+
 ## [1.2.3](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.2.2...v1.2.3) (2021-10-21)
 
 
