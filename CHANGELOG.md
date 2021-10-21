@@ -1,3 +1,12 @@
+## [1.2.5](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.2.4...v1.2.5) (2021-10-21)
+
+
+### Bug Fixes
+
+* demo style bug ([3f69bb9](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/3f69bb9d7c3f122fca5bacb53b760c2dc4e6973b))
+
+
+
 ## [1.2.4](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.2.3...v1.2.4) (2021-10-21)
 
 
