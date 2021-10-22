@@ -120,3 +120,12 @@ themeConfig: {
 }
 ```
 
+
+## 捐赠
+
+如果感觉对您有帮助，请作者喝杯咖啡吧，请注明您的名字或者昵称，方便作者感谢。
+
+| 微信 | 支付宝 |
+| :---: | :---: |
+| ![](https://xinlei3166.github.io/wxpay.png) | ![](https://xinlei3166.github.io/alipay.png) |
+
