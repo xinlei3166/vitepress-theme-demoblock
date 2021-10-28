@@ -87,10 +87,12 @@ export default {
         pathArr.value = path.split('/')
       }
     )
+
     const onClickControl = () => {
       isExpanded.value = !isExpanded.value
       hover.value = isExpanded.value
     }
+
     const blockClass = computed(() => {
       return `demo-${component.value}`
     })

@@ -2,6 +2,7 @@
 @import './var.css';
 @import './code.css';
 
+/* vitepress */
 .home-hero .image {
   width: 200px;
   height: 200px;
@@ -19,16 +20,18 @@
 .DocSearch {
   --docsearch-primary-color: var(--c-brand) !important;
 }
+
+/* icon-caret */
 .icon-caret-down {
   width: 16px;
   height: 100%;
   position: relative;
 }
+
 .icon-caret-down::before {
   content: '';
   width: 0;
   height: 0;
-  border-color: inherit;
   border: 6px solid transparent;
   border-top: 7.5px solid;
   position: absolute;
@@ -48,7 +51,6 @@
   content: '';
   width: 0;
   height: 0;
-  border-color: inherit;
   border: 6px solid transparent;
   border-bottom: 7px solid;
   position: absolute;

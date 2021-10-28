@@ -1,3 +1,4 @@
+/* vitepress layout */
 .page > .container:first-child {
   max-width: unset !important;
   padding: 0 12.5rem 4rem 3rem !important;
