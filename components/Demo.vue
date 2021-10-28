@@ -19,12 +19,11 @@
     <div
       ref="control"
       :class="['demo-block-control', { 'is-fixed': fixedControl }]"
-      @click="isExpanded = !isExpanded"
+      @click="onClickControl"
     >
       <transition name="arrow-slide">
         <i
           :class="[
-            'iconfont',
             'control-icon',
             { 'icon-caret-down': !isExpanded, 'icon-caret-up': isExpanded, hovering: hover }
           ]"
@@ -88,7 +87,10 @@ export default {
         pathArr.value = path.split('/')
       }
     )
-
+    const onClickControl = () => {
+      isExpanded.value = !isExpanded.value
+      hover.value = isExpanded.value
+    }
     const blockClass = computed(() => {
       return `demo-${component.value}`
     })
@@ -184,6 +186,7 @@ export default {
       isExpanded,
       locale,
       controlText,
+      onClickControl,
       copyText,
       highlight,
       description,
