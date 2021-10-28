@@ -19,7 +19,7 @@
       ref="control"
       class="demo-block-control"
       :class="{ 'is-fixed': fixedControl }"
-      @click="isExpanded = !isExpanded"
+      @click="clickControlHandle"
     >
       <transition name="arrow-slide">
         <i
@@ -87,7 +87,10 @@ export default {
         pathArr.value = path.split('/')
       }
     )
-
+    const clickControlHandle = () => {
+      isExpanded.value = !isExpanded.value
+      hover.value = isExpanded.value
+    }
     const blockClass = computed(() => {
       return `demo-${component.value}`
     })
@@ -177,6 +180,7 @@ export default {
       isExpanded,
       locale,
       controlText,
+      clickControlHandle,
       copyText,
       highlight,
       description,
