@@ -1,3 +1,13 @@
+## [1.3.2](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.3.1...v1.3.2) (2021-10-28)
+
+
+### Bug Fixes
+
+* controlText does not disappear when a block of code is retracted on the mobile client ([3cb1040](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/3cb1040307c1ef7e108994da253dc8719efa71a5))
+* 删除字体图标替换成css生成三角形 ([92d7cb7](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/92d7cb7506041c7abb499cc47479355d94fd94fe))
+
+
+
 ## [1.3.1](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.3.0...v1.3.1) (2021-10-28)
 
 
