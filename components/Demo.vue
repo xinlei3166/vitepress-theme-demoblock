@@ -24,7 +24,6 @@
       <transition name="arrow-slide">
         <i
           :class="[
-            'iconfont',
             'control-icon',
             { 'icon-caret-down': !isExpanded, 'icon-caret-up': isExpanded, hovering: hover }
           ]"
