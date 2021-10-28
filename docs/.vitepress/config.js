@@ -52,6 +52,10 @@ module.exports = {
             {
               text: '组件',
               link: '/guide/card'
+            },
+            {
+              text: '第三方',
+              link: '/guide/other'
             }
           ]
         }
@@ -74,9 +78,13 @@ module.exports = {
       const { demoBlockPlugin } = require('../../demoblock')
       md.use(demoBlockPlugin, {
         cssPreprocessor: 'less',
-        scriptImports: [
+        scriptImports: ["import * as ElementPlus from 'element-plus'"],
+        scriptReplaces: [
           { searchValue: /const ({ defineComponent as _defineComponent }) = Vue/g,
             replaceValue: 'const { defineComponent: _defineComponent } = Vue'
+          },
+          { searchValue: /import ({.*}) from 'element-plus'/g,
+            replaceValue: (s, s1) => `const ${s1} = ElementPlus`
           }
         ]
       })

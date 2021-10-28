@@ -80,8 +80,8 @@ function genInlineComponentText(template, script, options) {
       )
 
     // 因为 vue 函数组件需要把 import 转换为 require，这里可附加一些其他的转换。
-    if (options?.scriptImports) {
-      for (const s of options.scriptImports) {
+    if (options?.scriptReplaces) {
+      for (const s of options.scriptReplaces) {
         script = script.replace(s.searchValue, s.replaceValue)
       }
     }

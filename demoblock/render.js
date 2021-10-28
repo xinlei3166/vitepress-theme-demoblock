@@ -1,4 +1,5 @@
 const { stripScript, stripStyle, stripTemplate, genInlineComponentText } = require('./utils')
+const os = require('os')
 
 module.exports = function (content, options) {
   if (!content) {
@@ -39,6 +40,7 @@ module.exports = function (content, options) {
   if (componenetsString) {
     pageScript = `<script lang="ts">
       import * as Vue from 'vue'
+      ${options?.scriptImports.join(os.EOL)}
       export default {
         name: 'component-doc',
         components: {
