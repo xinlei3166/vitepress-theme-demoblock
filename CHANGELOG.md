@@ -1,3 +1,12 @@
+## [1.3.1](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.3.0...v1.3.1) (2021-10-28)
+
+
+### Bug Fixes
+
+* scriptImports为空时报错 ([99235b8](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/99235b8dd5f29f130811b9e299be30ba0f1fab8a))
+
+
+
 # [1.3.0](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.2.7...v1.3.0) (2021-10-28)
 
 
