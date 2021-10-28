@@ -40,7 +40,7 @@ module.exports = function (content, options) {
   if (componenetsString) {
     pageScript = `<script lang="ts">
       import * as Vue from 'vue'
-      ${options?.scriptImports.join(os.EOL)}
+      ${(options?.scriptImports || []).join(os.EOL)}
       export default {
         name: 'component-doc',
         components: {
