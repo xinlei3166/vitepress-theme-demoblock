@@ -1,3 +1,12 @@
+# [1.4.0](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.3.2...v1.4.0) (2021-11-10)
+
+
+### Features
+
+* 复制代码后 toast 展示成功 ([d05b64e](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/d05b64e20b3c3518396c860b99373c18b5ea5f63))
+
+
+
 ## [1.3.2](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.3.1...v1.3.2) (2021-10-28)
 
 
