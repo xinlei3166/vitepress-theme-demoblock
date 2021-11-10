@@ -64,7 +64,7 @@ export default {
 
 .demoblock-message-content {
   display: inline-block;
-  padding: 8px 20px;
+  padding: 8px 16px;
   border-radius: 2px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   margin-bottom: 8px;
@@ -79,6 +79,7 @@ export default {
 }
 
 .demoblock-message {
+  font-size: 14px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
