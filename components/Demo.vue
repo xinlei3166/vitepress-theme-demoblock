@@ -58,6 +58,7 @@ import {
 import { throttle } from '../demoblock/throttle'
 import clipboardCopy from '../demoblock/clipboard-copy'
 import { stripTemplate, stripScript, stripStyle } from '../demoblock/assist'
+import message from './message'
 
 export default {
   name: 'Demo',
@@ -143,12 +144,17 @@ export default {
       window.removeEventListener('resize', scrollHandler)
     }
 
-    const onCopy = () => {
-      clipboardCopy(props.sourceCode)
-      isShowTip.value = true
-      setTimeout(() => {
-        isShowTip.value = false
-      }, 1300)
+    const onCopy = async () => {
+      try {
+        await clipboardCopy(props.sourceCode)
+        message.info(locale.value['copy-success-text'])
+      } catch (err) {
+        message.error(locale.value['copy-success-text'])
+      }
+      // isShowTip.value = true
+      // setTimeout(() => {
+      //   isShowTip.value = false
+      // }, 1300)
     }
 
     const goCodepen = () => {}
@@ -294,6 +300,7 @@ export default {
 }
 
 .demo-block-control .control-button {
+  padding: 13px 0;
   color: var(--c-brand);
   font-size: 14px;
   font-weight: 500;
