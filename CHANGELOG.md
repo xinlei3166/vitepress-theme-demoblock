@@ -1,3 +1,12 @@
+## [1.4.1](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.4.0...v1.4.1) (2021-11-10)
+
+
+### Features
+
+* message toast style ([f3a751b](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/f3a751b75d8160d58906ba8716c2438a2206f5eb))
+
+
+
 # [1.4.0](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.3.2...v1.4.0) (2021-11-10)
 
 
