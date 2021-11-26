@@ -1,3 +1,12 @@
+## [1.4.2](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.4.1...v1.4.2) (2021-11-26)
+
+
+### Bug Fixes
+
+* folded width of the demoblock ([83774d1](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/83774d115d8310bdd0360ea5a23bb7cc717cbf14))
+
+
+
 ## [1.4.1](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.4.0...v1.4.1) (2021-11-10)
 
 
