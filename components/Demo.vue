@@ -164,7 +164,7 @@ export default {
       if (!val) {
         fixedControl.value = false
         control.value.style.left = '0'
-        control.value.style.width = `${demoBlock.value.offsetWidth - 2}px`
+        control.value.style.width = 'auto'
         removeScrollHandler()
         return
       }
