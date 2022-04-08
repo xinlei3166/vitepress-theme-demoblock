@@ -43,6 +43,7 @@ function genInlineComponentText(template, script, options) {
     source = source.replace(templateReplaceRegex, '$1')
   }
   const finalOptions = {
+    id: 'xxxxxxxx'.replace(/x/g, c => (Math.random() * 16 | 0).toString(16)),
     source: `<div>${source}</div>`,
     filename: 'inline-component', // TODO：这里有待调整
     compiler: TemplateCompiler,
