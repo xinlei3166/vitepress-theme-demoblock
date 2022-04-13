@@ -50,6 +50,8 @@ markdown: {
 
 
 markdown 中的vue代码被编译为了 vue 函数组件，需要把 import 转换为 require，这里可附加一些其他的转换。
+vue已经内置做了转换，例如 `import { ref } from 'vue'` 会被转换为 `const { ref } = Vue`。
+这里编码风格使用的是单引号，如果你使用的是双引号，需自行处理(详见[#21](https://github.com/xinlei3166/vitepress-theme-demoblock/issues/21))。
 ```js
 markdown: {
   config: (md) => {

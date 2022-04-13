@@ -12,7 +12,8 @@
 <template>
   <div class="card-wrap">
     <div class="card">{{ title }}</div>
-    <el-button type="primary" @click="onClick">点击</el-button>
+    <el-button type="primary" style="margin: 16px 16px 0 0" @click="onClick">点击</el-button>
+    <el-date-picker v-model="date" type="date" />
   </div>
 </template>
 
@@ -23,12 +24,13 @@ import { ElMessage, ElButton } from 'element-plus'
 export default defineComponent({
   setup() {
     const title = ref('vitepress-theme-demoblock')
+    const date = ref()
 
     const onClick = () => {
       ElMessage('消息')
     }
 
-    return { title, onClick }
+    return { title, date, onClick }
   }
 })
 </script>
