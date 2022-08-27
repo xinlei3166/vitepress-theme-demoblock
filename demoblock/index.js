@@ -64,7 +64,7 @@ const renderPlugin = (md, options) => {
     if (result.indexOf(startTag) !== -1 && result.indexOf(endTag) !== -1) {
       const { template, script, style } = renderDemoBlock(result, options)
       result = template
-      const data = md.__data
+      const data = md.__data || {}
       const hoistedTags = data.hoistedTags || (data.hoistedTags = [])
       hoistedTags.push(script)
       hoistedTags.push(style)
