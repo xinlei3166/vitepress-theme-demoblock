@@ -6,7 +6,7 @@ const { format } = require('./help')
 const argv = require('minimist')(process.argv.slice(2))
 const fs = require('fs')
 const path = require('path')
-const { red, magenta } = require('kolorist')
+const { red, magenta } = require('picocolors')
 
 const cwd = process.cwd()
 const resolve = (...args) => path.resolve(cwd, ...args)

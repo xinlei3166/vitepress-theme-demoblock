@@ -7,12 +7,14 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   name: 'DemoBlock',
   props: {
     customClass: String
   }
-}
+})
 </script>
 
 <style scoped>
@@ -20,10 +22,10 @@ export default {
   margin: 10px 0;
 }
 .demo-block .source {
-  border: solid 1px #ebebeb;
+  border: solid 1px var(--demoblock-border);
   border-radius: 3px;
   box-sizing: border-box;
   padding: 24px;
-  transition: .2s;
+  transition: 0.2s;
 }
 </style>

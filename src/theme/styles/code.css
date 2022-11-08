@@ -1,0 +1,27 @@
+code {
+  font-family: var(--code-font-family);
+  font-size: 0.85em;
+  border-radius: 3px;
+  margin: 0;
+  padding: 2px 5px;
+  color: #d56161;
+  background: #f6f7f9;
+}
+
+html.dark code {
+  color: var(--c-text-lighter);
+  background: var(--c-bg-light);
+}
+
+html.dark [class*='language-'] code {
+  background: transparent;
+}
+
+[class*='language-'] code {
+  line-height: var(--code-line-height);
+  font-size: var(--code-font-size);
+}
+
+.demo-block .shiki {
+  margin: 0;
+}

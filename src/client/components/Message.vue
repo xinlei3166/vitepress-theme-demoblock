@@ -10,15 +10,15 @@
   </transition-group>
 </template>
 
-<script>
-import { ref } from 'vue'
+<script lang="ts">
+import { ref, defineComponent } from 'vue'
 
 let seed = 0
 function getUuid() {
   return 'message_' + seed++
 }
 
-export default {
+export default defineComponent({
   setup() {
     const messages = ref([])
 
@@ -47,7 +47,7 @@ export default {
 
     return { messages, add, remove }
   }
-}
+})
 </script>
 
 <style scoped>

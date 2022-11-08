@@ -1,7 +1,15 @@
-const { compileTemplate, TemplateCompiler, compileScript, parse } = require('@vue/compiler-sfc')
+import type { SFCTemplateCompileOptions } from '@vue/compiler-sfc'
+import { compileTemplate, TemplateCompiler, compileScript, parse } from '@vue/compiler-sfc'
+import type { DemoblockPluginOptions } from '../types'
+import {
+  ScriptOrStyleReplacePattern,
+  ScriptSetupPattern,
+  StylePattern,
+  TemplateReplacePattern
+} from './patterns'
 
-function stripScript(content, id) {
-  const result = content.match(/<(script)(?:.* \bsetup\b)?[^>]*>([\s\S]+)<\/\1>/)
+export function stripScript(content: string, id: any) {
+  const result = content.match(ScriptSetupPattern)
   const source = result && result[0] ? result[0].trim() : ''
   if (source) {
     const { descriptor } = parse(source)
@@ -14,44 +22,47 @@ function stripScript(content, id) {
   return source
 }
 
-function stripStyle(content) {
-  const result = content.match(/<(style)[^>]*>([\s\S]+)<\/\1>/)
+export function stripStyle(content: string) {
+  const result = content.match(StylePattern)
   return result && result[2] ? result[2].trim() : ''
 }
 
 // 编写例子时不一定有 template。所以采取的方案是剔除其他的内容
-function stripTemplate(content) {
+export function stripTemplate(content: string) {
   content = content.trim()
   if (!content) {
     return content
   }
-  return content.replace(/<(script|style)[\s\S]+<\/\1>/g, '').trim()
+  return content.replace(ScriptOrStyleReplacePattern, '').trim()
 }
 
-function pad(source) {
+export function pad(source: string) {
   return source
     .split(/\r?\n/)
     .map(line => `  ${line}`)
     .join('\n')
 }
 
-const templateReplaceRegex = /<template>([\s\S]+)<\/template>/g
-
-function genInlineComponentText(template, script, options) {
+export function genInlineComponentText(
+  id: any,
+  template: string,
+  script: string,
+  options: DemoblockPluginOptions
+) {
   let source = template
-  if (templateReplaceRegex.test(source)) {
-    source = source.replace(templateReplaceRegex, '$1')
+  if (TemplateReplacePattern.test(source)) {
+    source = source.replace(TemplateReplacePattern, '$1')
   }
   const finalOptions = {
-    id: 'xxxxxxxx'.replace(/x/g, c => ((Math.random() * 16) | 0).toString(16)),
-    source: `<div>${source}</div>`,
-    filename: 'inline-component', // TODO：这里有待调整
-    compiler: TemplateCompiler,
+    id: `inline-component-${id}`,
+    source: `${source}`,
+    filename: `inline-component-${id}`,
+    // compiler: TemplateCompiler,
     compilerOptions: {
       mode: 'function'
     }
   }
-  const compiled = compileTemplate(finalOptions)
+  const compiled = compileTemplate(finalOptions as SFCTemplateCompileOptions)
   // tips
   if (compiled.tips && compiled.tips.length) {
     compiled.tips.forEach(tip => {
@@ -83,7 +94,7 @@ function genInlineComponentText(template, script, options) {
     // 因为 vue 函数组件需要把 import 转换为 require，这里可附加一些其他的转换。
     if (options?.scriptReplaces) {
       for (const s of options.scriptReplaces) {
-        script = script.replace(s.searchValue, s.replaceValue)
+        script = script.replace(s.searchValue, s.replaceValue as any)
       }
     }
   } else {
@@ -98,11 +109,4 @@ function genInlineComponentText(template, script, options) {
     }
   })()`
   return demoComponentContent
-}
-
-module.exports = {
-  stripScript,
-  stripStyle,
-  stripTemplate,
-  genInlineComponentText
 }

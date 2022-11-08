@@ -1,9 +1,12 @@
-const { stripScript, stripStyle, stripTemplate, genInlineComponentText } = require('./utils')
-const os = require('os')
+import { stripScript, stripStyle, stripTemplate, genInlineComponentText } from './utils'
+import os from 'os'
+import type { DemoblockPluginOptions } from '../types'
 
-module.exports = function (content, options) {
+let seed = 0
+
+const render = (content: string, options: DemoblockPluginOptions) => {
   if (!content) {
-    return content
+    return
   }
   const startTag = '<!--vue-demo:'
   const startTagLen = startTag.length
@@ -23,7 +26,8 @@ module.exports = function (content, options) {
     const html = stripTemplate(commentContent)
     const script = stripScript(commentContent, `render-demo-${id}-script`)
     const style = stripStyle(commentContent)
-    const demoComponentContent = genInlineComponentText(html, script, options) // 示例组件代码内容
+    seed = seed + 1
+    const demoComponentContent = genInlineComponentText(seed, html, script, options) // 示例组件代码内容
     const demoComponentName = `render-demo-${id}` // 示例代码组件名称
     templateArr.push(`<${demoComponentName} />`)
     styleArr.push(style)
@@ -40,7 +44,7 @@ module.exports = function (content, options) {
   if (componenetsString) {
     pageScript = `<script lang="ts">
       import * as Vue from 'vue'
-      ${(options?.scriptImports || []).join(os.EOL)}
+      ${options?.scriptImports?.join(os.EOL)}
       export default {
         name: 'component-doc',
         components: {
@@ -57,9 +61,15 @@ module.exports = function (content, options) {
   styleArr = [...new Set(styleArr)]
   let styleString = ''
   const preprocessors = ['scss', 'sass', 'less', 'stylus']
-  const _style = preprocessors.includes(options.cssPreprocessor)
-    ? `style lang="${options.cssPreprocessor}"`
-    : 'style'
+  let _style = 'style'
+  // 支持css预处理器
+  if (preprocessors.includes(options.cssPreprocessor!)) {
+    _style = `style lang="${options.cssPreprocessor}"`
+  }
+  // 支持customStyleTagName
+  if (options.customStyleTagName) {
+    _style = options.customStyleTagName
+  }
   // 支持css预处理器
   if (styleArr && styleArr.length > 0) {
     styleString = `<${_style}>${styleArr.join('')}</style>`
@@ -73,3 +83,5 @@ module.exports = function (content, options) {
     style: styleString
   }
 }
+
+export default render

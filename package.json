@@ -23,67 +23,90 @@
   },
   "files": [
     "bin",
-    "components",
-    "demoblock",
-    "theme",
+    "dist",
     ".prettierrc"
   ],
-  "main": "demoblock/index.js",
+  "main": "dist/node/index.mjs",
+  "module": "dist/node/index.cjs",
+  "types": "dist/node/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/node/index.d.ts",
+      "require": "./dist/node/index.cjs",
+      "import": "./dist/node/index.mjs"
+    }
+  },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "simple-git-hooks",
     "docs:dev": "yarn register:components && vitepress dev docs",
     "docs:build": "yarn register:components && vitepress build docs",
     "docs:serve": "vitepress serve docs",
     "register:components": "node bin/vitepress-register-components.js",
-    "test": "jest",
+    "test": "vitest",
+    "watch-build": "chokidar 'src/**/*.ts' 'src/**/*.vue' -c 'pnpm run build'",
+    "build": "unbuild",
+    "stub": "unbuild --stub",
     "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx,.vue",
-    "release": "yunque-release --skipBuild",
+    "release": "yunque-release",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "dependencies": {
     "camelcase": "^6.2.0",
     "globby": "^11.0.2",
-    "kolorist": "^1.5.0",
-    "markdown-it": "^12.0.4",
     "minimist": "^1.2.5",
+    "yaml": "^2.0.0-6",
+    "picocolors": "latest",
     "prettier": "^2.2.1",
-    "vitepress": "^0.16.1",
-    "yaml": "^2.0.0-6"
+    "@mdit-vue/plugin-sfc": "^0.11.1",
+    "@vue/compiler-sfc": "^3.2.37",
+    "@vueuse/core": "^9.1.1",
+    "shiki": "^0.11.1",
+    "markdown-it": "^13.0.1",
+    "markdown-it-container": "^3.0.0",
+    "vue": "^3.2.37",
+    "vitepress": "^1.0.0-alpha.27"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.12",
+    "@types/markdown-it": "^12.2.3",
     "@types/node": "^14.14.39",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
     "@yunquejs/release": "^0.1.4",
-    "chalk": "^4.1.2",
+    "chokidar-cli": "^3.0.0",
     "conventional-changelog-cli": "^2.1.1",
     "element-plus": "^1.1.0-beta.24",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.7.0",
-    "jest": "^26.1.0",
     "less": "^4.1.2",
     "lint-staged": "^10.5.4",
     "npm-run-all": "^4.1.5",
-    "ts-jest": "^26.3.0",
-    "ts-node": "^9.1.1",
-    "tsup": "^4.11.1",
-    "typescript": "^4.2.3",
-    "vue-eslint-parser": "^7.6.0",
-    "yorkie": "^2.0.0"
+    "tsx": "latest",
+    "simple-git-hooks": "latest",
+    "typescript": "^4.8.2",
+    "unbuild": "latest",
+    "vitest": "latest",
+    "vue-eslint-parser": "^7.6.0"
   },
   "gitHooks": {
-    "pre-commit": "lint-staged",
-    "commit-msg": "node scripts/verify-commit.js"
+    "pre-commit": "pnpm exec lint-staged --concurrent false",
+    "commit-msg": "pnpm exec tsx scripts/verifyCommit.ts $1"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,vue}": [
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ]
   },
   "engines": {
     "node": ">=14.0.0"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@algolia/client-search"
+      ]
+    }
   }
 }

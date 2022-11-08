@@ -35,7 +35,7 @@
       <div class="control-button-wrap">
         <transition name="text-slide">
           <span v-show="isExpanded" class="control-button copy-button" @click.stop="onCopy">
-            {{ copyText }}
+            {{ locale && locale['copy-button-text'] }}
           </span>
         </transition>
       </div>
@@ -55,9 +55,8 @@ import {
   nextTick,
   getCurrentInstance
 } from 'vue'
-import { throttle } from '../demoblock/throttle'
-import clipboardCopy from '../demoblock/clipboard-copy'
-import { stripTemplate, stripScript, stripStyle } from '../demoblock/assist'
+import { useClipboard, useThrottleFn } from '@vueuse/core'
+import { stripTemplate, stripScript, stripStyle } from '../utils'
 import message from './message'
 
 export default {
@@ -67,97 +66,21 @@ export default {
     sourceCode: String
   },
   setup(props) {
-    const hover = ref(false)
-    const fixedControl = ref(false)
-    const isExpanded = ref(false)
-    const isShowTip = ref(false)
-    // const codepen = reactive({
-    //   html: stripTemplate(props.sourceCode),
-    //   script: stripScript(props.sourceCode),
-    //   style: stripStyle(props.sourceCode)
-    // })
-
+    // ====================== Hooks ======================
+    const { copy } = useClipboard()
     const data = useData()
     const route = useRoute()
 
-    const pathArr = ref(route.path.split('/'))
-    const component = computed(() => pathArr.value[pathArr.value.length - 1].split('.')[0])
-    watch(
-      () => route.path,
-      path => {
-        pathArr.value = path.split('/')
-      }
-    )
+    // ====================== Lifecycle ======================
+    const hover = ref(false)
+    const fixedControl = ref(false)
+    const isExpanded = ref(false)
 
-    const onClickControl = () => {
-      isExpanded.value = !isExpanded.value
-      hover.value = isExpanded.value
-    }
-
-    const blockClass = computed(() => {
-      return `demo-${component.value}`
-    })
-    const locale = computed(() => {
-      return (
-        data.theme.value.demoblock?.[data.localePath.value] ?? {
-          'hide-text': '隐藏代码',
-          'show-text': '显示代码',
-          'copy-button-text': '复制代码片段',
-          'copy-success-text': '复制成功'
-        }
-      )
-    })
-
-    const copyText = computed(() => {
-      return isShowTip.value ? locale.value['copy-success-text'] : locale.value['copy-button-text']
-    })
-
-    const controlText = computed(() => {
-      return isExpanded.value ? locale.value['hide-text'] : locale.value['show-text']
-    })
-
-    // template refs
     const highlight = ref(null)
     const description = ref(null)
     const meta = ref(null)
     const control = ref(null)
     const demoBlock = ref(null)
-
-    const codeAreaHeight = computed(() => {
-      if (description.value) {
-        return description.value.clientHeight + highlight.value.clientHeight + 20
-      }
-      return highlight.value.clientHeight
-    })
-
-    const _scrollHandler = () => {
-      const { top, bottom, left } = meta.value.getBoundingClientRect()
-      const innerHeight = window.innerHeight || document.body.clientHeight
-      fixedControl.value = bottom > innerHeight && top + 44 <= innerHeight
-      control.value.style.left = fixedControl.value ? `${left}px` : '0'
-      const dv = fixedControl.value ? 1 : 2
-      control.value.style.width = `${demoBlock.value.offsetWidth - dv}px`
-    }
-    const scrollHandler = throttle(_scrollHandler, 200)
-    const removeScrollHandler = () => {
-      window.removeEventListener('scroll', scrollHandler)
-      window.removeEventListener('resize', scrollHandler)
-    }
-
-    const onCopy = async () => {
-      try {
-        await clipboardCopy(props.sourceCode)
-        message.info(locale.value['copy-success-text'])
-      } catch (err) {
-        message.error(locale.value['copy-success-text'])
-      }
-      // isShowTip.value = true
-      // setTimeout(() => {
-      //   isShowTip.value = false
-      // }, 1300)
-    }
-
-    const goCodepen = () => {}
 
     watch(isExpanded, val => {
       meta.value.style.height = val ? `${codeAreaHeight.value + 1}px` : '0'
@@ -187,6 +110,80 @@ export default {
       removeScrollHandler()
     })
 
+    const _scrollHandler = () => {
+      const { top, bottom, left } = meta.value.getBoundingClientRect()
+      const innerHeight = window.innerHeight || document.body.clientHeight
+      fixedControl.value = bottom > innerHeight && top + 44 <= innerHeight
+      control.value.style.left = fixedControl.value ? `${left}px` : '0'
+      const dv = fixedControl.value ? 1 : 2
+      control.value.style.width = `${demoBlock.value.offsetWidth - dv}px`
+    }
+    const scrollHandler = useThrottleFn(_scrollHandler, 200)
+    const removeScrollHandler = () => {
+      window.removeEventListener('scroll', scrollHandler)
+      window.removeEventListener('resize', scrollHandler)
+    }
+
+    watch(
+      () => route.path,
+      path => {
+        pathArr.value = path.split('/')
+      }
+    )
+
+    // ====================== Components ======================
+    const pathArr = ref(route.path.split('/'))
+    const component = computed(() => pathArr.value[pathArr.value.length - 1].split('.')[0])
+    const blockClass = computed(() => {
+      return `demo-${component.value}`
+    })
+
+    // Codepen
+    const codepen = reactive({
+      //   html: stripTemplate(props.sourceCode),
+      //   script: stripScript(props.sourceCode),
+      //   style: stripStyle(props.sourceCode)
+    })
+    const goCodepen = () => {}
+
+    // Expand
+    const onClickControl = () => {
+      isExpanded.value = !isExpanded.value
+      hover.value = isExpanded.value
+    }
+
+    const locale = computed(() => {
+      return (
+        data.theme.value.demoblock?.[data.localePath.value] ?? {
+          'hide-text': '隐藏代码',
+          'show-text': '显示代码',
+          'copy-button-text': '复制代码片段',
+          'copy-success-text': '复制成功'
+        }
+      )
+    })
+
+    const controlText = computed(() => {
+      return isExpanded.value ? locale.value['hide-text'] : locale.value['show-text']
+    })
+
+    const codeAreaHeight = computed(() => {
+      if (description.value) {
+        return description.value.clientHeight + highlight.value.clientHeight + 20
+      }
+      return highlight.value.clientHeight
+    })
+
+    // Copy
+    const onCopy = async () => {
+      try {
+        copy(props.sourceCode)
+        message.info(locale.value['copy-success-text'])
+      } catch (err) {
+        message.error(locale.value['copy-success-text'])
+      }
+    }
+
     return {
       blockClass,
       hover,
@@ -195,12 +192,12 @@ export default {
       locale,
       controlText,
       onClickControl,
-      copyText,
       highlight,
       description,
       meta,
       control,
       onCopy,
+      goCodepen,
       demoBlock
     }
   }
@@ -210,13 +207,17 @@ export default {
 <style scoped>
 .demo-block {
   margin: 10px 0;
-  border: solid 1px #ebebeb;
+  border: solid 1px var(--demoblock-border);
   border-radius: 3px;
   transition: 0.2s;
 }
 
 .demo-block.hover {
   box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6), 0 2px 4px 0 rgba(232, 237, 250, 0.5);
+}
+
+html.dark .demo-block.hover {
+  box-shadow: unset;
 }
 
 .source {
@@ -227,7 +228,7 @@ export default {
 }
 
 .meta {
-  border-top: solid 1px #ebebeb;
+  border-top: solid 1px var(--demoblock-border);
   background-color: var(--code-bg-color);
   overflow: hidden;
   height: 0;
@@ -235,7 +236,7 @@ export default {
 }
 
 .description {
-  border: solid 1px #ebebeb;
+  border: solid 1px var(--demoblock-border);
   border-radius: 3px;
   padding: 20px;
   box-sizing: border-box;
@@ -243,19 +244,19 @@ export default {
   color: var(--c-text);
   word-break: break-word;
   margin: 10px 10px 6px 10px;
-  background-color: #fff;
+  background-color: var(--demoblock-description-bg);
 }
 
 .demo-block-control {
-  border-top: solid 1px #eaeefb;
+  border-top: solid 1px var(--demoblock-border);
   height: 44px;
   box-sizing: border-box;
-  background-color: #fff;
+  background-color: var(--demoblock-control-bg);
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   text-align: center;
   margin-top: -1px;
-  color: #d3dce6;
+  color: var(--demoblock-control);
   cursor: pointer;
   position: relative;
 }
@@ -263,8 +264,8 @@ export default {
 .demo-block-control.is-fixed {
   position: sticky;
   bottom: 0;
-  /* width: calc(100% - 320px - 48px - 200px - 1px); */
-  border-right: solid 1px #eaeefb;
+  width: calc(100% - 20rem - 3rem - 12.5rem - 1px);
+  border-right: solid 1px var(--demoblock-border);
   z-index: 2;
 }
 
@@ -274,6 +275,7 @@ export default {
   line-height: 44px;
   transition: 0.3s;
 }
+
 .demo-block-control .control-icon.hovering {
   transform: translateX(-40px);
 }
@@ -290,7 +292,7 @@ export default {
 
 .demo-block-control:hover {
   color: var(--c-brand);
-  background-color: #f9fafc;
+  background-color: var(--demoblock-control-bg-hover);
 }
 
 .demo-block-control .text-slide-enter,
