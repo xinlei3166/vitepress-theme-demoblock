@@ -13,6 +13,14 @@ export default defineBuildConfig({
     {
       input: 'src/client/',
       outDir: 'dist/client/'
+    },
+    {
+      input: 'src/bin/',
+      outDir: 'dist/bin/'
+    },
+    {
+      input: 'src/theme/',
+      outDir: 'dist/theme/'
     }
   ],
   clean: true,

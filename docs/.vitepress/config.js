@@ -1,27 +1,54 @@
-const base = process.env.BASE || '/'
+import { defineConfig } from 'vitepress'
+import { demoBlockPlugin } from 'vitepress-theme-demoblock'
 
-module.exports = {
+export default defineConfig({
+  // lang: 'en-US',
   title: 'VitePress',
   description: 'Life is short, Keep it simple.',
+
+  lastUpdated: true,
+  cleanUrls: 'without-subfolders',
+
+  // base: '/',
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }]
   ],
-  base: base,
-  // locales: {
-  //   '/': { lang: 'en-US' },
-  //   '/zh/': { lang: 'zh-CN'},
-  // },
-  themeConfig: {
-    repo: 'xinlei3166/vitepress-theme-demoblock',
-    logo: '/logo.svg',
-    docsDir: 'docs',
-    docsBranch: 'master',
 
-    // locales
-    // locales: {
-    //   '/': { label: 'English' },
-    //   '/zh/' : { label: '简体中文' },
-    // },
+  markdown: {
+    headers: {
+      level: [0, 0]
+    },
+
+    // options for markdown-it-anchor
+    anchor: { permalink: false },
+
+    // options for markdown-it-toc
+    toc: { includeLevel: [1, 2] },
+
+    // light: #f9fafb, dark: --vp-code-block-bg
+    // theme: { light: 'github-light', dark: 'github-dark' },
+
+    config: (md) => {
+      md.use(demoBlockPlugin, {
+        customClass: 'demoblock-custom',
+        cssPreprocessor: 'less',
+        // customStyleTagName: 'style lang="less"',
+        scriptImports: ["import * as ElementPlus from 'element-plus'"],
+        scriptReplaces: [
+          { searchValue: /const ({ defineComponent as _defineComponent }) = Vue/g,
+            replaceValue: 'const { defineComponent: _defineComponent } = Vue'
+          },
+          { searchValue: /import ({.*}) from 'element-plus'/g,
+            replaceValue: (s, s1) => `const ${s1} = ElementPlus`
+          }
+        ]
+      })
+    }
+  },
+
+  themeConfig: {
+    lastUpdatedText: '上次更新',
+    logo: '/logo.svg',
 
     // demoblock locales
     demoblock: {
@@ -48,7 +75,8 @@ module.exports = {
     sidebar: { '/guide/': [
         {
           text: '指南',
-          children: [
+          collapsible: false,
+          items: [
             {
               text: '组件',
               link: '/guide/card'
@@ -62,32 +90,18 @@ module.exports = {
       ]
     },
 
-    // page meta
-    editLinks: true,
-    editLinkText: '在 GitHub 上编辑此页',
-    lastUpdated: '上次更新',
-  },
-  markdown: {
-    // options for markdown-it-anchor
-    anchor: { permalink: false },
+    editLink: {
+      pattern: 'https://github.com/xinlei3166/vitepress-theme-demoblock/edit/main/docs/:path',
+      text: '在 GitHub 上编辑此页'
+    },
 
-    // options for markdown-it-toc
-    toc: { includeLevel: [1, 2] },
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/xinlei3166/vitepress-theme-demoblock' }
+    ],
 
-    config: (md) => {
-      const { demoBlockPlugin } = require('../../demoblock')
-      md.use(demoBlockPlugin, {
-        cssPreprocessor: 'less',
-        scriptImports: ["import * as ElementPlus from 'element-plus'"],
-        scriptReplaces: [
-          { searchValue: /const ({ defineComponent as _defineComponent }) = Vue/g,
-            replaceValue: 'const { defineComponent: _defineComponent } = Vue'
-          },
-          { searchValue: /import ({.*}) from 'element-plus'/g,
-            replaceValue: (s, s1) => `const ${s1} = ElementPlus`
-          }
-        ]
-      })
+    footer: {
+      message: 'Released under the MIT License.',
+      copyright: 'Copyright © 2022-present 君惜'
     }
   }
-}
+})

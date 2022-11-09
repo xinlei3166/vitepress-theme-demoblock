@@ -69,8 +69,8 @@ export default defineComponent({
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   margin-bottom: 8px;
   color: #fff;
-  background: var(--c-brand);
-  border-color: var(--c-brand);
+  background: var(--vp-c-brand);
+  border-color: var(--vp-c-brand);
 }
 
 .demoblock-message-error .demoblock-message-content {

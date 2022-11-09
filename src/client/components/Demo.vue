@@ -18,7 +18,7 @@
     </div>
     <div
       ref="control"
-      :class="['demo-block-control', { 'is-fixed': fixedControl }]"
+      :class="['demo-block-control', { 'is-fixed': fixedControl, 'is-expanded': isExpanded }]"
       @click="onClickControl"
     >
       <transition name="arrow-slide">
@@ -153,6 +153,7 @@ export default {
     }
 
     const locale = computed(() => {
+      console.log('data.localePath.value', data.localePath.value)
       return (
         data.theme.value.demoblock?.[data.localePath.value] ?? {
           'hide-text': '隐藏代码',
@@ -205,6 +206,10 @@ export default {
 </script>
 
 <style scoped>
+:global(.vp-doc .demo-block div[class*='language-']) {
+  border-radius: 0 !important;
+}
+
 .demo-block {
   margin: 10px 0;
   border: solid 1px var(--demoblock-border);
@@ -229,7 +234,7 @@ html.dark .demo-block.hover {
 
 .meta {
   border-top: solid 1px var(--demoblock-border);
-  background-color: var(--code-bg-color);
+  background-color: var(--vp-c-bg);
   overflow: hidden;
   height: 0;
   transition: height 0.2s;
@@ -241,7 +246,7 @@ html.dark .demo-block.hover {
   padding: 20px;
   box-sizing: border-box;
   line-height: 26px;
-  color: var(--c-text);
+  color: var(--vp-c-text);
   word-break: break-word;
   margin: 10px 10px 6px 10px;
   background-color: var(--demoblock-description-bg);
@@ -259,6 +264,10 @@ html.dark .demo-block.hover {
   color: var(--demoblock-control);
   cursor: pointer;
   position: relative;
+}
+
+.demo-block-control.is-expanded {
+  margin-top: -2px;
 }
 
 .demo-block-control.is-fixed {
@@ -291,7 +300,7 @@ html.dark .demo-block.hover {
 }
 
 .demo-block-control:hover {
-  color: var(--c-brand);
+  color: var(--vp-c-brand);
   background-color: var(--demoblock-control-bg-hover);
 }
 
@@ -303,7 +312,7 @@ html.dark .demo-block.hover {
 
 .demo-block-control .control-button {
   padding: 13px 0;
-  color: var(--c-brand);
+  color: var(--vp-c-brand);
   font-size: 14px;
   font-weight: 500;
   margin: 0 10px;

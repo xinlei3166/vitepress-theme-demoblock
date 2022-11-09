@@ -1,24 +1,35 @@
 ---
-home: true
-heroImage: /logo.svg
-actionText: Get Started
-actionLink: /guide/
+layout: home
 
-altActionText: Learn More
-altActionLink: /guide/
+title: VitePress
+titleTemplate: Vite & Vue Powered Static Site Generator
+
+hero:
+  name: VitePress
+  text: Vite & Vue Powered Static Site Generator
+  tagline: Simple, powerful, and performant. Meet the modern SSG framework you've always wanted.
+  image:
+    src: /logo.svg
+    alt: vitepress-theme-demoblock  
+  actions:
+    - theme: brand
+      text: Get Started
+      link: /guide/
+    - theme: alt
+      text: Learn More
+      link: /guide/
 
 features:
-  - title: 💡 Instant Server Start
-    details: On demand file serving over native ESM, no bundling required!
-  - title: ⚡️ Lightning Fast HMR
-    details: Hot Module Replacement (HMR) that stays fast regardless of app size.
-  - title: 🛠️ Rich Features
-    details: Out-of-the-box support for TypeScript, JSX, CSS and more.
-  - title: 📦 Optimized Build
-    details: Pre-configured Rollup build with multi-page and library mode support.
-  - title: 🔩 Universal Plugins
-    details: Rollup-superset plugin interface shared between dev and build.
-  - title: 🔑 Fully Typed APIs
-    details: Flexible programmatic APIs with full TypeScript typing.
-footer: MIT Licensed | Copyright © 2021-present 君惜
+  - icon: ⚡️
+    title: "Vite: The DX that can't be beat"
+    details: Feel the speed of Vite. Instant server start and lightning fast HMR that stays fast regardless of the app size.
+  - icon: 💡
+    title: Designed to be simplicity first
+    details: With Markdown-centered content, it's built to help you focus on writing and deployed with minimum configuration.
+  - icon: 🛠️
+    title: Power of Vue meets Markdown
+    details: Enhance your content with all the features of Vue in Markdown, while being able to customize your site with Vue.
+  - icon: 🔑
+    title: Fully static yet still dynamic
+    details: Go wild with true SSG + SPA architecture. Static on page load, but engage users with 100% interactivity from there.
 ---

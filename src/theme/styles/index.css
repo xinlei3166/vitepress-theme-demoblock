@@ -1,23 +1,21 @@
-@import './layout.css';
-@import './code.css';
-
-/* vitepress */
-.home-hero .image {
-  width: 200px;
-  height: 200px;
+:root {
+  /*--vp-c-brand: #646cff;*/
+  /*--vp-c-brand-light: #747bff;*/
+  /*--vp-c-brand-lighter: #9499ff;*/
+  /*--vp-c-brand-lightest: #bcc0ff;*/
+  /*--vp-c-brand-dark: #535bf2;*/
+  /*--vp-c-brand-darker: #454ce1;*/
+  --demoblock-border: var(--vp-c-divider-light);
+  --demoblock-control: #d3dce6;
+  --demoblock-control-bg: var(--vp-c-bg);
+  --demoblock-control-bg-hover: #f9fafc;
+  --demoblock-description-bg: var(--vp-c-bg);
 }
 
-.nav-bar .logo {
-  height: 30px;
-  margin-right: 2px;
-}
-
-.custom-block.tip {
-  border-color: var(--c-brand-light);
-}
-
-.DocSearch {
-  --docsearch-primary-color: var(--c-brand) !important;
+html.dark {
+  --demoblock-control: #8b9eb0;
+  --demoblock-control-bg-hover: var(--vp-c-bg);
+  --demoblock-description-bg: var(--vp-code-bg-color);
 }
 
 /* icon-caret */
