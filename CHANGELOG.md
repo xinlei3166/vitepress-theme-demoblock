@@ -1,3 +1,7 @@
+# [2.0.0-beta.2](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2022-11-10)
+
+
+
 # [2.0.0-beta.1](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.4.2...v2.0.0-beta.1) (2022-11-10)
 
 
