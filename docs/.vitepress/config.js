@@ -47,6 +47,7 @@ export default defineConfig({
   },
 
   themeConfig: {
+    outlineTitle: '本页目录',
     lastUpdatedText: '上次更新',
     logo: '/logo.svg',
 

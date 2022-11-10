@@ -1,5 +1,7 @@
 # vitepress-theme-demoblock
 
+> 这是2.x版本的文档，已经采用TypeScript和ESM规范重写，如果使用1.x版本请看[v1文档](v1.md)。
+
 ## 简介
 
 vitepress-theme-demoblock 是一个基于 Vitepress 的主题插件，它可以帮助你在编写文档的时候增加 Vue 示例，它的诞生初衷是为了降低编写组件文档时增加一些相关示例的难度。
@@ -12,13 +14,15 @@ vitepress-theme-demoblock 参考了 [Element UI](https://github.com/element-plus
 
 [查看Demo](https://xinlei3166.github.io/vitepress-demo/)
 
-
+## 提示
+由于vitepress版本更新频繁，目前支持版本为1.0.0-alpha.28。
 
 ## 安装
 
 ```bash
 npm install -D vitepress-theme-demoblock
 yarn add -D vitepress-theme-demoblock
+pnpm add -D vitepress-theme-demoblock
 ```
 
 
@@ -27,10 +31,11 @@ yarn add -D vitepress-theme-demoblock
 
 .vitepress/config.js文件中使用demoBlockPlugin插件
 
+import { demoBlockPlugin } from 'vitepress-theme-demoblock'
+
 ```js
 markdown: {
   config: (md) => {
-    const { demoBlockPlugin } = require('vitepress-theme-demoblock')
     md.use(demoBlockPlugin)
   }
 }
@@ -40,9 +45,20 @@ markdown 中的vue代码包含的style内容，会被组合成一个style统一�
 ```js
 markdown: {
   config: (md) => {
-    const { demoBlockPlugin } = require('vitepress-theme-demoblock')
     md.use(demoBlockPlugin, {
       cssPreprocessor: 'less'
+    })
+  }
+}
+```
+
+自定义style tag name
+
+```js
+markdown: {
+  config: (md) => {
+    md.use(demoBlockPlugin, {
+      customStyleTagName: 'style lang="less"' // style标签会解析为<style lang="less"><style>
     })
   }
 }
@@ -55,7 +71,6 @@ vue已经内置做了转换，例如 `import { ref } from 'vue'` 会被转换为
 ```js
 markdown: {
   config: (md) => {
-    const { demoBlockPlugin } = require('vitepress-theme-demoblock')
     md.use(demoBlockPlugin, {
       scriptImports: ["import * as ElementPlus from 'element-plus'"],
       scriptReplaces: [
@@ -71,22 +86,40 @@ markdown: {
 }
 ```
 
+多style和多script支持
+
+为了把markdown中的代码渲染为组件，内部已经使用了script和style。如果想在md文件中使用script可以使用script setup，参考下面例子：
+```markdown
+## 多style和多script支持
+code snippet ...
+
+<style>
+body {
+color: red;
+}
+</style>
+
+<script lang="ts" setup>
+console.log('script')
+</script>
+```
+
 
 .vitepress/theme/index.js中使用vitepress-theme-demoblock主题，并注册组件(包含主题中默认的组件)。
 
 ```js
-import theme from 'vitepress/dist/client/theme-default'
-import 'vitepress-theme-demoblock/theme/styles/index.css'
-import { registerComponents } from './register-components'
+import DefaultTheme from 'vitepress/theme'
+import 'vitepress-theme-demoblock/dist/theme/styles/index.css'
+import { useComponents } from './useComponents'
 
 export default {
-  ...theme,
-  enhanceApp({ app, router, siteData }) {
-    registerComponents(app)
+  ...DefaultTheme,
+  enhanceApp(ctx) {
+    DefaultTheme.enhanceApp(ctx)
+    useComponents(ctx.app)
   }
 }
 ```
-
 
 
 package.json配置命令scripts，vitepress-rc用来注册组件(--docsDir 指定docs目录，--componentsDir 指定组件注册目录)
@@ -105,6 +138,8 @@ package.json配置命令scripts，vitepress-rc用来注册组件(--docsDir 指�
 ## 多语言
 
 .vitepress/config.js文件中增加demoblock字段来支持多语言 (默认中文)
+
+> vitepress有一个修改多语言支持的PR，详见[1339](https://github.com/vuejs/vitepress/pull/1339)，其更新后此处会同步调整。
 
 ```js
 themeConfig: {
@@ -127,19 +162,65 @@ themeConfig: {
 ```
 
 
+## 自定义主题
+
+通过配置 customClass 类名称，自定义demoblock样式
+```js
+markdown: {
+  config: (md) => {
+    md.use(demoBlockPlugin, {
+      customClass: 'demoblock-custom'
+    })
+  }
+}
+```
+
+通过配置暴露的 css-variables，自定义demoblock样式
+
+```css
+:root {
+  --demoblock-border: var(--vp-c-divider-light);
+  --demoblock-control: #d3dce6;
+  --demoblock-control-bg: var(--vp-c-bg);
+  --demoblock-control-bg-hover: #f9fafc;
+  --demoblock-description-bg: var(--vp-c-bg);
+}
+
+html.dark {
+  --demoblock-control: #8b9eb0;
+  --demoblock-control-bg-hover: var(--vp-c-bg);
+  --demoblock-description-bg: var(--vp-code-bg-color);
+}
+```
+
+配置主题色
+```css
+:root {
+  --vp-c-brand: #646cff;
+  --vp-c-brand-light: #747bff;
+  --vp-c-brand-lighter: #9499ff;
+  --vp-c-brand-lightest: #bcc0ff;
+  --vp-c-brand-dark: #535bf2;
+  --vp-c-brand-darker: #454ce1;
+}
+```
+
+
 ## 使用第三方组件库
 
 这个插件主要是针对自己的组件库来使用的，第三方的组件库直接导入使用即可(例如element-plus)。
 
 在 .vuepress/theme/index.js 文件中加入以下代码：
 ```js
+import DefaultTheme from 'vitepress/theme'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
 export default {
-  ...theme,
-  enhanceApp({ app, router, siteData }) {
-    app.use(ElementPlus)
+  ...DefaultTheme,
+  enhanceApp(ctx) {
+    DefaultTheme.enhanceApp(ctx)
+    ctx.app.use(ElementPlus)
   }
 }
 ```
