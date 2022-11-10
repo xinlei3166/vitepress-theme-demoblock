@@ -1,3 +1,15 @@
+# [2.0.0-beta.1](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.4.2...v2.0.0-beta.1) (2022-11-10)
+
+
+### Features
+
+* v2.0 开发中，使用TypeScript重写，支持vitepress新版 ([048dcaa](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/048dcaac1f1fa69e2ad9c731540fb5aae6cbf57b))
+* v2.0 开发中，使用TypeScript重写，支持vitepress新版 ([3245fc4](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/3245fc490077fb0de4008b3e777c7d11f7489373))
+* 适配vitepress@1.0.0-alpha.28 ([a5de5b5](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/a5de5b5eb1b31a49047eed769dc6497fe930ca4c))
+* 适配vitepress@1.0.0-alpha.28, 支持多script ([e144fd3](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/e144fd33b1e54f4ca5826531ef9da13d7967e659))
+
+
+
 ## [1.4.2](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v1.4.1...v1.4.2) (2021-11-26)
 
 
