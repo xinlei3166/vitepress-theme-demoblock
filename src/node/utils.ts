@@ -56,7 +56,7 @@ export function genInlineComponentText(
   const finalOptions = {
     id: `inline-component-${id}`,
     source: `${source}`,
-    filename: `inline-component-${id}`,
+    filename: `inline-component-${id}.vue`,
     // compiler: TemplateCompiler,
     compilerOptions: {
       mode: 'function'

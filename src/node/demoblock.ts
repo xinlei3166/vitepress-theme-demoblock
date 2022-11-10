@@ -77,6 +77,9 @@ export const renderPlugin = (md: MarkdownIt, options: DemoblockPluginOptions) =>
       const styleSfcBlock = style?.match(sfcRegexp)?.groups
       env.sfcBlocks.template = templateSfcBlock || null
       env.sfcBlocks.script = scriptSfcBlock || null
+      if (scriptSfcBlock) {
+        env.sfcBlocks.scripts.push(scriptSfcBlock)
+      }
       if (styleSfcBlock) {
         env.sfcBlocks.styles.push(styleSfcBlock)
       }

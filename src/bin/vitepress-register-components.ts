@@ -13,7 +13,7 @@ const cwd = process.cwd()
 const resolve = (...args: any[]) => path.resolve(cwd, ...args)
 const docsDir = argv.docsDir || 'docs'
 const componentsDir = argv.componentsDir || 'components'
-console.log('docsDir::', resolve(docsDir))
+
 if (!fs.existsSync(resolve(docsDir))) {
   console.log(red('docsDir does not exist'))
   process.exit(0)

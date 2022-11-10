@@ -45,12 +45,13 @@ const render = (content: string, options: DemoblockPluginOptions) => {
     pageScript = `<script lang="ts">
       import * as Vue from 'vue'
       ${options?.scriptImports?.join(os.EOL)}
-      export default {
+      const { defineComponent } = Vue
+      export default defineComponent({
         name: 'component-doc',
         components: {
           ${componenetsString}
         }
-      }
+      })
     </script>`
   } else if (content.indexOf('<script>') === 0) {
     // 硬编码，有待改善

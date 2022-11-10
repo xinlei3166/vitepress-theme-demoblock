@@ -44,9 +44,9 @@ export default defineComponent({
     justify-content: center;
     font-size: 18px;
     font-weight: 500;
-    color: var(--c-brand);
-    background: var(--c-bg);
-    border: 1px solid var(--c-brand);
+    color: var(--vp-c-brand);
+    background: var(--vp-c-bg);
+    border: 1px solid var(--vp-c-brand);
     height: 80px;
     width: 600px;
   }
@@ -95,9 +95,9 @@ const onClick = () => {
     justify-content: center;
     font-size: 18px;
     font-weight: 500;
-    color: var(--c-brand);
-    background: var(--c-bg);
-    border: 1px solid var(--c-brand);
+    color: var(--vp-c-brand);
+    background: var(--vp-c-bg);
+    border: 1px solid var(--vp-c-brand);
     height: 80px;
     width: 600px;
   }

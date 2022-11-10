@@ -7,7 +7,7 @@ const cwd = process.cwd()
 const resolve = (...args: any[]) => path.resolve(cwd, ...args)
 
 const prettierConfigPath = '.prettierrc'
-console.log('prettierConfigPath:::', resolve(prettierConfigPath))
+
 export const format = (content: string, userOptions = { parser: 'javascript' }) => {
   const defaultOptionBuffer = fs.readFileSync(resolve(prettierConfigPath))
   const defaultOptions = yaml.parse(defaultOptionBuffer.toString())
