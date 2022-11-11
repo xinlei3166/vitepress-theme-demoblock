@@ -1,5 +1,5 @@
 import { defineBuildConfig, BuildEntry } from 'unbuild'
-// import { path } from '@vuepress/utils'
+// import { path } from 'path'
 // import { findFiles, getDirname } from './src/utils'
 // const __dirname = getDirname(import.meta.url)
 // const clientFiles = findFiles(path.resolve(__dirname, 'src/client'))
@@ -13,6 +13,10 @@ export default defineBuildConfig({
     {
       input: 'src/client/',
       outDir: 'dist/client/'
+    },
+    {
+      input: 'src/utils/',
+      outDir: 'dist/utils/'
     },
     {
       input: 'src/bin/',
