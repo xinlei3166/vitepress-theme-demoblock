@@ -1,3 +1,12 @@
+# [2.0.0-beta.3](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v2.0.0-beta.2...v2.0.0-beta.3) (2022-11-11)
+
+
+### Features
+
+* export utils ([75ee117](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/75ee1179071423397480324c4b53de20613c1f82))
+
+
+
 # [2.0.0-beta.2](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2022-11-10)
 
 
