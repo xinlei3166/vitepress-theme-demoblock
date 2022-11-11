@@ -153,7 +153,7 @@ export default {
     }
 
     const locale = computed(() => {
-      console.log('data.localePath.value', data.localePath.value)
+      // console.log('data.localePath.value', data.localePath.value)
       return (
         data.theme.value.demoblock?.[data.localePath.value] ?? {
           'hide-text': '隐藏代码',

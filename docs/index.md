@@ -1,13 +1,13 @@
 ---
 layout: home
 
-title: VitePress
-titleTemplate: Vite & Vue Powered Static Site Generator
+title: Vitepress Theme Demoblock
+titleTemplate: 一个基于 Vitepress 的主题插件，它可以帮助你在编写文档的时候增加 Vue 示例。
 
 hero:
-  name: VitePress
-  text: Vite & Vue Powered Static Site Generator
-  tagline: Simple, powerful, and performant. Meet the modern SSG framework you've always wanted.
+  name: Vitepress
+  # text: vitepress-theme-demoblock
+  tagline: 一个基于 Vitepress 的主题插件，它可以帮助你在编写文档的时候增加 Vue 示例。
   image:
     src: /logo.svg
     alt: vitepress-theme-demoblock  

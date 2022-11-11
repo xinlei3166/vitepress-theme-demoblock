@@ -3,8 +3,8 @@ import { demoBlockPlugin } from 'vitepress-theme-demoblock'
 
 export default defineConfig({
   // lang: 'en-US',
-  title: 'VitePress',
-  description: 'Life is short, Keep it simple.',
+  title: 'Vitepress',
+  description: '一个基于 Vitepress 的主题插件，它可以帮助你在编写文档的时候增加 Vue 示例。',
 
   lastUpdated: true,
   cleanUrls: 'without-subfolders',
@@ -75,9 +75,13 @@ export default defineConfig({
     // sidebar
     sidebar: { '/guide/': [
         {
-          text: '指南',
+          text: '文档',
           collapsible: false,
           items: [
+            {
+              text: '指南',
+              link: '/guide/'
+            },
             {
               text: '组件',
               link: '/guide/card'
