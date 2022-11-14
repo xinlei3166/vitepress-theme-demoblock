@@ -27,7 +27,7 @@ pnpm add -D vitepress-theme-demoblock
 
 
 
-## 用法
+## 快速上手
 
 .vitepress/config.js文件中使用demoBlockPlugin插件
 
@@ -40,6 +40,37 @@ markdown: {
   }
 }
 ```
+
+.vitepress/theme/index.js中使用vitepress-theme-demoblock主题，并注册组件(包含主题中默认的组件)。
+
+```js
+import DefaultTheme from 'vitepress/theme'
+import 'vitepress-theme-demoblock/dist/theme/styles/index.css'
+import { useComponents } from './useComponents'
+
+export default {
+  ...DefaultTheme,
+  enhanceApp(ctx) {
+    DefaultTheme.enhanceApp(ctx)
+    useComponents(ctx.app)
+  }
+}
+```
+
+
+package.json配置命令scripts，vitepress-rc用来注册组件(--docsDir 指定docs目录，--componentsDir 指定组件注册目录)
+
+```json
+"scripts": {
+  "docs:dev": "yarn run register:components && vitepress dev docs",
+  "docs:build": "yarn run register:components && vitepress build docs",
+  "docs:serve": "vitepress serve docs",
+  "register:components": "vitepress-rc"
+}
+```
+
+
+## 更多用法
 
 markdown 中的vue代码包含的style内容，会被组合成一个style统一处理，如果需要使用css预处理器，需要提前指定并且手动安装使用的css预处理器。
 ```js
@@ -103,36 +134,6 @@ color: red;
 console.log('script')
 </script>
 ```
-
-
-.vitepress/theme/index.js中使用vitepress-theme-demoblock主题，并注册组件(包含主题中默认的组件)。
-
-```js
-import DefaultTheme from 'vitepress/theme'
-import 'vitepress-theme-demoblock/dist/theme/styles/index.css'
-import { useComponents } from './useComponents'
-
-export default {
-  ...DefaultTheme,
-  enhanceApp(ctx) {
-    DefaultTheme.enhanceApp(ctx)
-    useComponents(ctx.app)
-  }
-}
-```
-
-
-package.json配置命令scripts，vitepress-rc用来注册组件(--docsDir 指定docs目录，--componentsDir 指定组件注册目录)
-
-```json
-"scripts": {
-  "docs:dev": "yarn run register:components && vitepress dev docs",
-  "docs:build": "yarn run register:components && vitepress build docs",
-  "docs:serve": "vitepress serve docs",
-  "register:components": "vitepress-rc"
-}
-```
-
 
 
 ## 多语言
