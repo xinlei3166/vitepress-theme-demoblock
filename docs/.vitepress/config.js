@@ -89,6 +89,10 @@ export default defineConfig({
             {
               text: '第三方',
               link: '/guide/other'
+            },
+            {
+              text: '自定义元素',
+              link: '/guide/custom'
             }
           ]
         }
@@ -107,6 +111,14 @@ export default defineConfig({
     footer: {
       message: 'Released under the MIT License.',
       copyright: 'Copyright © 2022-present 君惜'
+    }
+  },
+
+  vue: {
+    template: {
+      compilerOptions: {
+        isCustomElement: (tag) => tag.startsWith('custom-')
+      }
     }
   }
 })

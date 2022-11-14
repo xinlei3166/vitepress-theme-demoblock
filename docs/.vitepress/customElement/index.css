@@ -1,0 +1,4 @@
+.custom-button {
+  border: 1px solid var(--vp-c-brand);
+  color: red;
+}

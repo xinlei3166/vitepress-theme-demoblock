@@ -79,7 +79,7 @@
     "@yunquejs/release": "^0.1.4",
     "chokidar-cli": "^3.0.0",
     "conventional-changelog-cli": "^2.1.1",
-    "element-plus": "^1.1.0-beta.24",
+    "element-plus": "^2.2.21",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
