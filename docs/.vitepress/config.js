@@ -90,10 +90,10 @@ export default defineConfig({
               text: '第三方',
               link: '/guide/other'
             },
-            {
-              text: '自定义元素',
-              link: '/guide/custom'
-            }
+            // {
+            //   text: '自定义元素',
+            //   link: '/guide/custom'
+            // }
           ]
         }
       ]
