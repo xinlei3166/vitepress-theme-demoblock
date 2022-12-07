@@ -17,7 +17,7 @@ vitepress-theme-demoblock 参考了 [Element UI](https://github.com/element-plus
 ## 提示
 由于vitepress版本更新频繁，目前支持版本为1.0.0-alpha.30。
 
-在vue@3.2.45版本下setup语法报错，锁定vue版本为3.2.45。
+在vue@3.2.45版本下setup语法报错，锁定vue版本为3.2.44。
 
 ## 安装
 
