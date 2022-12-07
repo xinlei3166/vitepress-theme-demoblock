@@ -1,3 +1,12 @@
+## [2.0.1](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v2.0.0...v2.0.1) (2022-12-07)
+
+
+### Bug Fixes
+
+* 临时解决setup 语法报错，锁定 vue 版本为 3.2.44。 ([0e0b6e3](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/0e0b6e3a1dbfcbe70e6cc63e08cb360cf2ddab10))
+
+
+
 # [2.0.0](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v2.0.0-beta.3...v2.0.0) (2022-11-11)
 
 
