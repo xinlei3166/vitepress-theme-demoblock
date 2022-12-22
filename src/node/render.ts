@@ -77,6 +77,12 @@ const render = (content: string, options: DemoblockPluginOptions) => {
   } else {
     styleString = `<style></style>`
   }
+  if (options?.styleReplaces) {
+    for (const s of options.styleReplaces) {
+      styleString = styleString.replace(s.searchValue, s.replaceValue as any)
+    }
+  }
+
   templateArr.push(content.slice(start))
   return {
     template: templateArr.join(''),

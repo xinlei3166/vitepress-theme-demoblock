@@ -10,7 +10,7 @@
 
 ```vue
 <template>
-  <div class="card-wrap">
+  <div class="card-wrap card-wrap--card">
     <div class="card">{{ title }}</div>
   </div>
 </template>
@@ -28,6 +28,8 @@ export default defineComponent({
 </script>
 
 <style lang="less">
+@import "docs/styles/index.css";
+
 .card-wrap {
   text-align: center;
   .card {

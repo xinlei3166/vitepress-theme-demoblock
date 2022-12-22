@@ -41,6 +41,11 @@ export default defineConfig({
           { searchValue: /import ({.*}) from 'element-plus'/g,
             replaceValue: (s, s1) => `const ${s1} = ElementPlus`
           }
+        ],
+        styleReplaces: [
+          { searchValue: '@import "docs/styles/index.css";',
+            replaceValue: '@import "@docs/styles/index.css";'
+          }
         ]
       })
     }

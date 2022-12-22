@@ -119,6 +119,23 @@ markdown: {
 }
 ```
 
+
+style路径转换
+```js
+markdown: {
+  config: (md) => {
+    md.use(demoBlockPlugin, {
+      styleReplaces: [
+        { searchValue: '@import "docs/styles/index.css";',
+          replaceValue: '@import "@docs/styles/index.css";'
+        }
+      ]
+    })
+  }
+}
+```
+
+
 多style和多script支持
 
 为了把markdown中的代码渲染为组件，内部已经使用了script和style。如果想在md文件中使用script可以使用script setup，参考下面例子：

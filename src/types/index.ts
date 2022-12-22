@@ -25,4 +25,5 @@ export interface DemoblockPluginOptions {
   customStyleTagName?: string
   scriptImports?: Array<string>
   scriptReplaces?: Array<ScriptReplace>
+  styleReplaces?: Array<ScriptReplace>
 }
