@@ -47,7 +47,7 @@ markdown: {
 
 ```js
 import DefaultTheme from 'vitepress/theme'
-import 'vitepress-theme-demoblock/dist/theme/styles/index.css'
+import 'vitepress-theme-demoblock/theme/styles/index.css'
 import { useComponents } from './useComponents'
 
 export default {
