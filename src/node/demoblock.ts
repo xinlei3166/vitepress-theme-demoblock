@@ -18,8 +18,9 @@ export const blockPlugin = (md: MarkdownIt, options: DemoblockPluginOptions) => 
       if (tokens[idx].nesting === 1) {
         // const description = m && m.length > 1 ? m[1] : ''
         const content = tokens[idx + 1].type === 'fence' ? tokens[idx + 1].content : ''
+        const contents = content.replace('<client-only>', '').replace('</client-only>', '')
         return `<demo customClass="${options.customClass}" sourceCode="${md.utils.escapeHtml(
-          content
+          contents
         )}">${content ? `<!--vue-demo:${content}:vue-demo-->` : ''}`
       }
       return '</demo>'
@@ -45,6 +46,7 @@ export const codePlugin = (md: MarkdownIt, options: DemoblockPluginOptions) => {
     if (token.info.trim() === lang && isInDemoContainer) {
       const m = prevToken.info.trim().match(/^demo\s*(.*)$/)
       const description = m && m.length > 1 ? m[1] : ''
+      const content = token.content.replace('<client-only>', '').replace('</client-only>', '')
       return `
         ${
           description
@@ -55,7 +57,7 @@ export const codePlugin = (md: MarkdownIt, options: DemoblockPluginOptions) => {
         }
         <template #highlight>
           <div v-pre class="language-${lang}">
-            ${md.options.highlight?.(token.content, lang, '') || ''}
+            ${md.options.highlight?.(content, lang, '') || ''}
           </div>
         </template>`
     }
