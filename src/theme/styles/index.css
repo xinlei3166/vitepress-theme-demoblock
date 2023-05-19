@@ -5,17 +5,18 @@
   /*--vp-c-brand-lightest: #bcc0ff;*/
   /*--vp-c-brand-dark: #535bf2;*/
   /*--vp-c-brand-darker: #454ce1;*/
-  --demoblock-border: var(--vp-c-divider-light);
+  --demoblock-border: rgba(60, 60, 60, 0.12);
   --demoblock-control: #d3dce6;
   --demoblock-control-bg: var(--vp-c-bg);
   --demoblock-control-bg-hover: #f9fafc;
-  --demoblock-description-bg: var(--vp-c-bg);
+  --demoblock-description-bg: var(--vp-c-bg, #ffffff);
 }
 
 html.dark {
   --demoblock-control: #8b9eb0;
   --demoblock-control-bg-hover: var(--vp-c-bg);
-  --demoblock-description-bg: var(--vp-code-bg-color);
+  --demoblock-description-bg: var(--vp-code-bg-color, #1a1a1a);
+  --demoblock-border: rgba(84, 84, 84, 0.48);
 }
 
 /* icon-caret */
