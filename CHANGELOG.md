@@ -1,3 +1,12 @@
+# [3.0.0](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v2.0.2...v3.0.0) (2023-06-26)
+
+
+### Features
+
+* 1.UI改版； ([78bf883](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/78bf8837d519044853c629a9da004d32a243c204))
+
+
+
 ## [2.0.2](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v2.0.1...v2.0.2) (2022-12-22)
 
 
