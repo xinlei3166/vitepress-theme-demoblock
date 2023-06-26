@@ -1,6 +1,6 @@
 <template>
-  <div class="demo-block" :class="[customClass ? customClass : '']">
-    <div class="source">
+  <div class="demoblock" :class="[customClass ? customClass : '']">
+    <div class="demoblock-view">
       <slot></slot>
     </div>
   </div>
@@ -16,10 +16,10 @@ export default {
 </script>
 
 <style scoped>
-.demo-block {
+.demoblock {
   margin: 10px 0;
 }
-.demo-block .source {
+.demoblock .demoblock-view {
   border: solid 1px #ebebeb;
   border-radius: 3px;
   box-sizing: border-box;

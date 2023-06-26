@@ -1,0 +1,24 @@
+:root {
+  --demoblock-transition-duration: .3s;
+  --demoblock-transition-duration-fast: .2s;
+}
+
+.demoblock-fade-in-enter-active, .demoblock-fade-in-leave-active {
+  transition: all var(--demoblock-transition-duration) cubic-bezier(.55, 0, .1, 1)
+}
+.demoblock-fade-in-enter-from, .demoblock-fade-in-leave-active {
+  opacity: 0
+}
+
+.demoblock-fade-in-linear-enter-active, .demoblock-fade-in-linear-leave-active {
+  transition: opacity var(--demoblock-transition-duration-fast) linear;
+}
+.demoblock-fade-in-linear-enter-from, .demoblock-fade-in-linear-leave-to {
+  opacity: 0
+}
+
+.demoblock-collapse-transition-enter-active, .demoblock-collapse-transition-leave-active {
+  transition: var(--demoblock-transition-duration) max-height ease-in-out,
+  var(--demoblock-transition-duration) padding-top ease-in-out,
+  var(--demoblock-transition-duration) padding-bottom ease-in-out
+}

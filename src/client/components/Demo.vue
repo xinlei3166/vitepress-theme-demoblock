@@ -1,66 +1,65 @@
 <template>
-  <div
-    ref="demoBlock"
-    :class="['demo-block', blockClass, customClass ? customClass : '', { hover }]"
-    @mouseenter="hover = true"
-    @mouseleave="hover = false"
-  >
-    <div class="source">
-      <slot />
-    </div>
-    <div ref="meta" class="meta">
-      <div v-if="$slots.description" ref="description" class="description">
-        <slot name="description" />
+  <ClientOnly>
+    <div ref="demoblock" :class="['demoblock', blockClass, customClass ? customClass : '']">
+      <div class="demoblock-view">
+        <slot />
       </div>
-      <div ref="highlight" class="highlight">
-        <slot name="highlight" />
+      <div class="demoblock-divider demoblock-divider--horizontal"></div>
+      <div class="demoblock-op-btns">
+        <Tooltip v-if="false" placement="top" :content="locale['edit-in-editor']">
+          <RiFlaskLine class="demoblock-op-btn" @click="onPlaygroundClick" />
+        </Tooltip>
+        <Tooltip v-if="false" placement="top" :content="locale['edit-on-github']">
+          <RiGithubLine class="demoblock-op-btn" />
+        </Tooltip>
+        <Tooltip placement="top" :content="locale['copy-code']">
+          <RiFileCopyLine class="demoblock-op-btn" @click="onCopy" />
+        </Tooltip>
+        <Tooltip placement="top" :content="locale['view-source']">
+          <RiCodeLine class="demoblock-op-btn" @click="onControlClick" />
+        </Tooltip>
       </div>
+      <CollapseTransition>
+        <div v-show="isExpanded" ref="source" class="demoblock-source">
+          <div class="highlight">
+            <slot name="highlight" />
+          </div>
+        </div>
+      </CollapseTransition>
+      <Transition name="demoblock-fade-in-linear">
+        <div v-show="isExpanded" ref="control" class="demoblock-control" @click="onControlClick">
+          <EpCaretTop class="control-icon" />
+          <span class="control-text">{{ locale['hide-source'] }}</span>
+        </div>
+      </Transition>
     </div>
-    <div
-      ref="control"
-      :class="['demo-block-control', { 'is-fixed': fixedControl, 'is-expanded': isExpanded }]"
-      @click="onClickControl"
-    >
-      <transition name="arrow-slide">
-        <i
-          :class="[
-            'control-icon',
-            { 'icon-caret-down': !isExpanded, 'icon-caret-up': isExpanded, hovering: hover }
-          ]"
-        ></i>
-      </transition>
-      <transition name="text-slide">
-        <span v-show="hover" class="control-text">{{ controlText }}</span>
-      </transition>
-      <div class="control-button-wrap">
-        <transition name="text-slide">
-          <span v-show="isExpanded" class="control-button copy-button" @click.stop="onCopy">
-            {{ locale && locale['copy-button-text'] }}
-          </span>
-        </transition>
-      </div>
-    </div>
-  </div>
+  </ClientOnly>
 </template>
 
 <script>
 import { useRoute, useData } from 'vitepress'
-import {
-  ref,
-  reactive,
-  computed,
-  watch,
-  onMounted,
-  onBeforeUnmount,
-  nextTick,
-  getCurrentInstance
-} from 'vue'
-import { useClipboard, useThrottleFn } from '@vueuse/core'
-import { stripTemplate, stripScript, stripStyle } from '../utils'
+import { ref, computed, watch } from 'vue'
+import { useClipboard, isClient } from '@vueuse/core'
+import { usePlayground } from '../../hooks'
 import message from './message'
+import RiFlaskLine from '../icons/RiFlaskLine.vue'
+import RiGithubLine from '../icons/RiGithubLine.vue'
+import RiFileCopyLine from '../icons/RiFileCopyLine.vue'
+import RiCodeLine from '../icons/RiCodeLine.vue'
+import EpCaretTop from '../icons/EpCaretTop.vue'
+import Tooltip from './Tooltip.vue'
+import CollapseTransition from './CollapseTransition.vue'
 
 export default {
-  name: 'Demo',
+  components: {
+    RiFlaskLine,
+    RiGithubLine,
+    RiFileCopyLine,
+    RiCodeLine,
+    EpCaretTop,
+    Tooltip,
+    CollapseTransition
+  },
   props: {
     customClass: String,
     sourceCode: String
@@ -72,58 +71,6 @@ export default {
     const route = useRoute()
 
     // ====================== Lifecycle ======================
-    const hover = ref(false)
-    const fixedControl = ref(false)
-    const isExpanded = ref(false)
-
-    const highlight = ref(null)
-    const description = ref(null)
-    const meta = ref(null)
-    const control = ref(null)
-    const demoBlock = ref(null)
-
-    watch(isExpanded, val => {
-      meta.value.style.height = val ? `${codeAreaHeight.value + 1}px` : '0'
-      if (!val) {
-        fixedControl.value = false
-        control.value.style.left = '0'
-        control.value.style.width = 'auto'
-        removeScrollHandler()
-        return
-      }
-      setTimeout(() => {
-        window.addEventListener('scroll', scrollHandler)
-        window.addEventListener('resize', scrollHandler)
-        _scrollHandler()
-      }, 300)
-    })
-
-    onMounted(() => {
-      nextTick(() => {
-        if (!description.value) {
-          highlight.value.style.width = '100%'
-        }
-      })
-    })
-
-    onBeforeUnmount(() => {
-      removeScrollHandler()
-    })
-
-    const _scrollHandler = () => {
-      const { top, bottom, left } = meta.value.getBoundingClientRect()
-      const innerHeight = window.innerHeight || document.body.clientHeight
-      fixedControl.value = bottom > innerHeight && top + 44 <= innerHeight
-      control.value.style.left = fixedControl.value ? `${left}px` : '0'
-      const dv = fixedControl.value ? 1 : 2
-      control.value.style.width = `${demoBlock.value.offsetWidth - dv}px`
-    }
-    const scrollHandler = useThrottleFn(_scrollHandler, 200)
-    const removeScrollHandler = () => {
-      window.removeEventListener('scroll', scrollHandler)
-      window.removeEventListener('resize', scrollHandler)
-    }
-
     watch(
       () => route.path,
       path => {
@@ -138,197 +85,167 @@ export default {
       return `demo-${component.value}`
     })
 
-    // Codepen
-    const codepen = reactive({
-      //   html: stripTemplate(props.sourceCode),
-      //   script: stripScript(props.sourceCode),
-      //   style: stripStyle(props.sourceCode)
-    })
-    const goCodepen = () => {}
+    const source = ref(null)
+    const control = ref(null)
+    const demoblock = ref(null)
+
+    // Playground
+    const onPlaygroundClick = () => {
+      const { link } = usePlayground(props.sourceCode)
+      if (!isClient) return
+      window.open(link)
+    }
 
     // Expand
-    const onClickControl = () => {
+    const isExpanded = ref(false)
+    const onControlClick = () => {
       isExpanded.value = !isExpanded.value
-      hover.value = isExpanded.value
     }
 
     const locale = computed(() => {
-      // console.log('data.localePath.value', data.localePath.value)
       return (
-        data.theme.value.demoblock?.[data.localePath.value] ?? {
-          'hide-text': '隐藏代码',
-          'show-text': '显示代码',
-          'copy-button-text': '复制代码片段',
-          'copy-success-text': '复制成功'
+        data.theme.value.demoblock?.[data.localeIndex.value] ?? {
+          // 'view-source': 'View source',
+          // 'hide-source': 'Hide source',
+          // 'edit-in-editor': 'Edit in Playground',
+          // 'edit-on-github': 'Edit on GitHub',
+          // 'copy-code': 'Copy code',
+          // 'copy-success': 'Copy success',
+          // 'copy-error': 'Copy error',
+          'view-source': '查看源代码',
+          'hide-source': '隐藏源代码',
+          'edit-in-editor': '在 Playground 中编辑',
+          'edit-on-github': '在 Github 中编辑',
+          'copy-code': '复制代码',
+          'copy-success': '复制成功',
+          'copy-error': '复制失败'
         }
       )
-    })
-
-    const controlText = computed(() => {
-      return isExpanded.value ? locale.value['hide-text'] : locale.value['show-text']
-    })
-
-    const codeAreaHeight = computed(() => {
-      if (description.value) {
-        return description.value.clientHeight + highlight.value.clientHeight + 20
-      }
-      return highlight.value.clientHeight
     })
 
     // Copy
     const onCopy = async () => {
       try {
         copy(props.sourceCode)
-        message.info(locale.value['copy-success-text'])
+        message.success(locale.value['copy-success'])
       } catch (err) {
-        message.error(locale.value['copy-success-text'])
+        message.error(locale.value['copy-error'])
       }
     }
 
     return {
       blockClass,
-      hover,
-      fixedControl,
-      isExpanded,
       locale,
-      controlText,
-      onClickControl,
-      highlight,
-      description,
-      meta,
+      source,
       control,
+      demoblock,
+      isExpanded,
+      onControlClick,
       onCopy,
-      goCodepen,
-      demoBlock
+      onPlaygroundClick
     }
   }
 }
 </script>
 
 <style scoped>
-:global(.vp-doc .demo-block div[class*='language-']) {
+:global(.vp-doc .demoblock div[class*='language-']) {
   border-radius: 0 !important;
 }
 
-.demo-block {
+:global(.highlight div[class*='language-']) {
+  margin: 0 !important;
+}
+
+.demoblock {
   margin: 10px 0;
   border: solid 1px var(--demoblock-border);
   border-radius: 3px;
   transition: 0.2s;
 }
 
-.demo-block.hover {
-  box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6), 0 2px 4px 0 rgba(232, 237, 250, 0.5);
+.demoblock {
+  --demoblock-op-btn-color: #909399;
+  --demoblock-op-btn-hover-color: #303133;
 }
 
-html.dark .demo-block.hover {
-  box-shadow: unset;
+html.dark .demoblock {
+  --demoblock-op-btn-color: #a3a6ad;
+  --demoblock-op-btn-hover-color: #e5eaf3;
 }
 
-.source {
+.demoblock-view {
   box-sizing: border-box;
   padding: 24px;
   transition: 0.2s;
   overflow: auto;
 }
 
-.meta {
-  border-top: solid 1px var(--demoblock-border);
-  background-color: var(--vp-c-bg);
+.demoblock-divider {
+  position: relative;
+}
+
+.demoblock-divider--horizontal {
+  display: block;
+  height: 1px;
+  width: 100%;
+  border-top: 1px solid var(--demoblock-border);
+}
+
+.demoblock-op-btns {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 40px;
+}
+
+.demoblock-op-btn {
+  margin: 0 0.5rem;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--demoblock-op-btn-color);
+  transition: 0.2s;
+}
+.demoblock-op-btn:hover {
+  color: var(--demoblock-op-btn-hover-color);
+}
+
+.demoblock-source {
   overflow: hidden;
-  height: 0;
-  transition: height 0.2s;
 }
 
-.description {
-  border: solid 1px var(--demoblock-border);
-  border-radius: 3px;
-  padding: 20px;
-  box-sizing: border-box;
-  line-height: 26px;
-  color: var(--vp-c-text);
-  word-break: break-word;
-  margin: 10px 10px 6px 10px;
-  background-color: var(--demoblock-description-bg);
-}
-
-.demo-block-control {
-  border-top: solid 1px var(--demoblock-border);
+.demoblock-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid var(--demoblock-border);
   height: 44px;
   box-sizing: border-box;
   background-color: var(--demoblock-control-bg);
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
-  text-align: center;
   margin-top: -1px;
   color: var(--demoblock-control);
   cursor: pointer;
-  position: relative;
-}
-
-.demo-block-control.is-expanded {
-  margin-top: -2px;
-}
-
-.demo-block-control.is-fixed {
   position: sticky;
-  bottom: 0;
-  width: calc(100% - 20rem - 3rem - 12.5rem - 1px);
-  border-right: solid 1px var(--demoblock-border);
-  z-index: 2;
-}
-
-.demo-block-control .control-icon {
-  display: inline-block;
-  font-size: 16px;
-  line-height: 44px;
-  transition: 0.3s;
-}
-
-.demo-block-control .control-icon.hovering {
-  transform: translateX(-40px);
-}
-
-.demo-block-control .control-text {
-  position: absolute;
-  transform: translateX(-30px);
-  font-size: 14px;
-  line-height: 44px;
-  font-weight: 500;
-  transition: 0.3s;
-  display: inline-block;
-}
-
-.demo-block-control:hover {
-  color: var(--vp-c-brand);
-  background-color: var(--demoblock-control-bg-hover);
-}
-
-.demo-block-control .text-slide-enter,
-.demo-block-control .text-slide-leave-active {
-  opacity: 0;
-  transform: translateX(10px);
-}
-
-.demo-block-control .control-button {
-  padding: 13px 0;
-  color: var(--vp-c-brand);
-  font-size: 14px;
-  font-weight: 500;
-  margin: 0 10px;
-}
-
-.demo-block-control .control-button-wrap {
-  line-height: 43px;
-  position: absolute;
-  top: 0;
+  left: 0;
   right: 0;
-  padding-left: 5px;
-  padding-right: 25px;
+  bottom: 0;
+  z-index: 10;
 }
-</style>
-<style>
-.highlight div[class*='language-'] {
-  margin: 0 !important;
+
+.demoblock-control .control-icon {
+  display: inline-block;
+  font-size: 18px;
+}
+
+.demoblock-control .control-text {
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.demoblock-control:hover {
+  color: var(--vp-c-brand);
 }
 </style>

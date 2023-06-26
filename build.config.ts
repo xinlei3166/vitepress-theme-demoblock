@@ -1,9 +1,11 @@
 import { defineBuildConfig, BuildEntry } from 'unbuild'
+
 // import { path } from 'path'
 // import { findFiles, getDirname } from './src/utils'
 // const __dirname = getDirname(import.meta.url)
 // const clientFiles = findFiles(path.resolve(__dirname, 'src/client'))
 
+const dirs = ['client', 'hooks', 'utils', 'theme']
 export default defineBuildConfig({
   entries: [
     {
@@ -11,25 +13,17 @@ export default defineBuildConfig({
       name: 'node/index'
     },
     {
-      input: 'src/client/',
-      outDir: 'dist/client/'
+      input: 'src/bin/vitepress-register-components',
+      name: 'bin/vitepress-register-components'
     },
-    {
-      input: 'src/utils/',
-      outDir: 'dist/utils/'
-    },
-    {
-      input: 'src/bin/',
-      outDir: 'dist/bin/'
-    },
-    {
-      input: 'src/theme/',
-      outDir: 'dist/theme/'
-    }
+    ...dirs.map(dir => ({
+      input: `src/${dir}/`,
+      outDir: `dist/${dir}/`
+    }))
   ],
   clean: true,
   declaration: true,
-  externals: [],
+  externals: ['vite'],
   rollup: {
     emitCJS: true
   }

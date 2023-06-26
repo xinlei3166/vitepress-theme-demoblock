@@ -1,23 +1,21 @@
 # vitepress-theme-demoblock
 
-> 这是2.x版本的文档，已经采用TypeScript和ESM规范重写，如果使用1.x版本请看[v1文档](v1.md)。
+> 这是 3.x 版本的文档，已经采用 [TypeScript](https://www.typescriptlang.org/docs/) 和 [ESM](https://www.ecma-international.org/publications-and-standards/standards/ecma-262/) 规范重写，2.x 版本文档请看[v2文档](v2.md)，1.x 版本文档请看[v1文档](v1.md)。
 
 ## 简介
 
-vitepress-theme-demoblock 是一个基于 Vitepress 的主题插件，它可以帮助你在编写文档的时候增加 Vue 示例，它的诞生初衷是为了降低编写组件文档时增加一些相关示例的难度。
+`vitepress-theme-demoblock` 是一个基于 `Vitepress` 的主题插件，它可以帮助你在编写文档的时候增加 `Vue` 示例，它的诞生初衷是为了降低编写组件文档时增加一些相关示例的难度。
 
-使用 Vitepress 编写组件示例有以下不足之处：
-  * 1.组件示例和示例代码本质上一样，却需要写两遍。
-  * 2.Vitepress 无法渲染 Markdown 中的 script 和 style 代码块。
-
-vitepress-theme-demoblock 参考了 [Element UI](https://github.com/element-plus/element-plus) 的文档渲染，实现了和它一样的，可在 Markdown 中直接编写示例的语法。
+使用 `Vitepress` 编写组件示例有以下不足之处：
+* 1.组件示例和示例代码本质上一样，却需要写两遍。
+* 2.`Vitepress` 无法渲染 `Markdown` 中的代码块。
 
 [查看Demo](https://xinlei3166.github.io/vitepress-demo/)
 
 ## 提示
-由于vitepress版本更新频繁，目前支持版本为1.0.0-alpha.30。
+由于 `Vitepress` 版本更新频繁，目前支持版本为 `1.0.0-beta.3`。
 
-在vue@3.2.45版本下setup语法报错，锁定vue版本为3.2.44。
+`Vue` 支持版本为 `3.3.4`。
 
 ## 安装
 
@@ -31,19 +29,22 @@ pnpm add -D vitepress-theme-demoblock
 
 ## 快速上手
 
-.vitepress/config.js文件中使用demoBlockPlugin插件
+`.vitepress/config.js` 文件中使用 `demoBlockPlugin` 和 `demoblockVitePlugin` 插件
 
-import { demoBlockPlugin } from 'vitepress-theme-demoblock'
+import { demoBlockPlugin, demoblockVitePlugin } from 'vitepress-theme-demoblock'
 
 ```js
 markdown: {
   config: (md) => {
     md.use(demoBlockPlugin)
   }
+},
+vite: {
+  plugins: [demoblockVitePlugin()]
 }
 ```
 
-.vitepress/theme/index.js中使用vitepress-theme-demoblock主题，并注册组件(包含主题中默认的组件)。
+`.vitepress/theme/index.js` 中使用 `vitepress-theme-demoblock` 主题，并注册组件(包含主题中默认的组件)。
 
 ```js
 import DefaultTheme from 'vitepress/theme'
@@ -60,7 +61,8 @@ export default {
 ```
 
 
-package.json配置命令scripts，vitepress-rc用来注册组件(--docsDir 指定docs目录，--componentsDir 指定组件注册目录)
+`package.json` 配置命令 `scripts`，`vitepress-rc` 用来注册组件(`--docsDir` 指定docs目录，`--componentsDir` 指定组件注册目录)，
+如果 `.vitepress` 目录和 `package.json` 同级，--docsDir 设置为 `.`。
 
 ```json
 "scripts": {
@@ -74,108 +76,67 @@ package.json配置命令scripts，vitepress-rc用来注册组件(--docsDir 指�
 
 ## 更多用法
 
-markdown 中的vue代码包含的style内容，会被组合成一个style统一处理，如果需要使用css预处理器，需要提前指定并且手动安装使用的css预处理器。
-```js
-markdown: {
-  config: (md) => {
-    md.use(demoBlockPlugin, {
-      cssPreprocessor: 'less'
-    })
-  }
-}
-```
+`.md` 文件中 使用 `style` 和 `script`，参考下面例子：
 
-自定义style tag name
-
-```js
-markdown: {
-  config: (md) => {
-    md.use(demoBlockPlugin, {
-      customStyleTagName: 'style lang="less"' // style标签会解析为<style lang="less"><style>
-    })
-  }
-}
-```
-
-
-markdown 中的vue代码被编译为了 vue 函数组件，需要把 import 转换为 require，这里可附加一些其他的转换。
-vue已经内置做了转换，例如 `import { ref } from 'vue'` 会被转换为 `const { ref } = Vue`。
-这里编码风格使用的是单引号，如果你使用的是双引号，需自行处理(详见[#21](https://github.com/xinlei3166/vitepress-theme-demoblock/issues/21))。
-```js
-markdown: {
-  config: (md) => {
-    md.use(demoBlockPlugin, {
-      scriptImports: ["import * as ElementPlus from 'element-plus'"],
-      scriptReplaces: [
-        { searchValue: /const ({ defineComponent as _defineComponent }) = Vue/g,
-          replaceValue: 'const { defineComponent: _defineComponent } = Vue'
-        },
-        { searchValue: /import ({.*}) from 'element-plus'/g,
-          replaceValue: (s, s1) => `const ${s1} = ElementPlus`
-        }
-      ]
-    })
-  }
-}
-```
-
-
-style路径转换
-```js
-markdown: {
-  config: (md) => {
-    md.use(demoBlockPlugin, {
-      styleReplaces: [
-        { searchValue: '@import "docs/styles/index.css";',
-          replaceValue: '@import "@docs/styles/index.css";'
-        }
-      ]
-    })
-  }
-}
-```
-
-
-多style和多script支持
-
-为了把markdown中的代码渲染为组件，内部已经使用了script和style。如果想在md文件中使用script可以使用script setup，参考下面例子：
 ```markdown
-## 多style和多script支持
-code snippet ...
+# code snippet ...
 
 <style>
-body {
-color: red;
-}
+body { color: red; }
 </style>
 
-<script lang="ts" setup>
-console.log('script')
+<script setup>
+console.log('vitepress-theme-demoblock setup')
+</script>
+
+<script>
+console.log('vitepress-theme-demoblock')
 </script>
 ```
+
+## 从 v2 迁移
+`v3` 在使用插件时需要使用一个 `Vite` 插件。
+```js
+vite: {
+  plugins: [demoblockVitePlugin()]
+}
+```
+
+`v3` 不支持 `:::demo` 后面的描述。
+```js
+v2 :::demo 使用 `type`、`plain`、`round` 和 `circle` 属性来定义 Button 的样式。
+v3 :::demo
+```
+
+因使用了 `Vite` 插件，`Vue` 组件经过 `@vitejs/plugin-vue-jsx` 插件编译， 很多用法已经支持，
+例如：setup、jsx、tsx、css v-bind 等等。插件之前的一些属性和方法都已删除，目前只保留了 `customClass` 属性。
 
 
 ## 多语言
 
-.vitepress/config.js文件中增加demoblock字段来支持多语言 (默认中文)
-
-> vitepress有一个修改多语言支持的PR，详见[1339](https://github.com/vuejs/vitepress/pull/1339)，其更新后此处会同步调整。
+`.vitepress/config.js` 文件中增加 `demoblock` 字段来支持多语言 (默认中文)
 
 ```js
 themeConfig: {
   // demoblock locales
   demoblock: {
-    '/': {
-      'hide-text': 'Hide', 
-      'show-text': 'Expand',
-      'copy-button-text': 'Copy',
-      'copy-success-text': 'Copy success'
+    'root': {
+      'view-source': 'View source',
+        'hide-source': 'Hide source',
+        'edit-in-editor': 'Edit in Playground',
+        'edit-on-github': 'Edit on GitHub',
+        'copy-code': 'Copy code',
+        'copy-success': 'Copy success',
+        'copy-error': 'Copy error',
     },
-    '/zh': {
-      'hide-text': '隐藏代码',
-      'show-text': '显示代码',
-      'copy-button-text': '复制代码片段',
-      'copy-success-text': '复制成功'
+    'zh': {
+      'view-source': '查看源代码',
+        'hide-source': '隐藏源代码',
+        'edit-in-editor': '在 Playground 中编辑',
+        'edit-on-github': '在 Github 中编辑',
+        'copy-code': '复制代码',
+        'copy-success': '复制成功',
+        'copy-error': '复制失败'
     }
   }
 }
@@ -184,7 +145,7 @@ themeConfig: {
 
 ## 自定义主题
 
-通过配置 customClass 类名称，自定义demoblock样式
+通过配置 `customClass` 类名称，自定义 `demoblock` 样式
 ```js
 markdown: {
   config: (md) => {
@@ -195,21 +156,17 @@ markdown: {
 }
 ```
 
-通过配置暴露的 css-variables，自定义demoblock样式
+通过重写 `css-variables`，自定义 `demoblock` 样式
 
 ```css
 :root {
-  --demoblock-border: var(--vp-c-divider-light);
-  --demoblock-control: #d3dce6;
+  --demoblock-border: var(--vp-c-divider);
+  --demoblock-control: #909399;
   --demoblock-control-bg: var(--vp-c-bg);
-  --demoblock-control-bg-hover: #f9fafc;
-  --demoblock-description-bg: var(--vp-c-bg);
 }
 
 html.dark {
-  --demoblock-control: #8b9eb0;
-  --demoblock-control-bg-hover: var(--vp-c-bg);
-  --demoblock-description-bg: var(--vp-code-bg-color);
+  --demoblock-control: #A3A6AD;
 }
 ```
 
@@ -228,24 +185,25 @@ html.dark {
 
 ## 使用第三方组件库
 
-这个插件主要是针对自己的组件库来使用的，第三方的组件库直接导入使用即可(例如element-plus)。
+这个插件主要是针对自己的组件库来使用的，第三方的组件库直接导入使用即可(例如 `element-plus` )。
 
-在 .vitepress/theme/index.js 文件中加入以下代码：
+在 `.vitepress/theme/index.js` 文件中加入以下代码：
 ```js
 import DefaultTheme from 'vitepress/theme'
-import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+// import ElementPlus from 'element-plus'
+// import cn from 'element-plus/lib/locale/lang/zh-cn'
 
 export default {
   ...DefaultTheme,
   enhanceApp(ctx) {
     DefaultTheme.enhanceApp(ctx)
-    ctx.app.use(ElementPlus)
+    // ctx.app.use(ElementPlus, { locale: cn })
   }
 }
 ```
 
-使用的时候，不用导入element组件，直接使用即可：
+使用的时候，导入 `element-plus` 组件即可：
 ```vue
 <template>
   <div class="card-wrap">
@@ -255,16 +213,22 @@ export default {
 </template>
 
 <script setup>
-import { ref, getCurrentInstance } from 'vue'
+import { ref } from 'vue'
+import { ElMessage, ElButton } from 'element-plus'
 
 const title = ref('vitepress-theme-demoblock')
 
-const instance = getCurrentInstance()
-
 const onClick = () => {
-  instance.appContext.config.globalProperties.$message.success('消息')
+  ElMessage('消息')
 }
 </script>
 ```
 
+也可以安装 [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) 和 [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components) ，配合 `Vite` 实现自动导入。
 
+## 感谢
+
+参考：[element-ui](https://github.com/ElemeFE/element/tree/dev/examples), 
+[element-plus](https://github.com/element-plus/element-plus/tree/dev/docs), 
+[vite-plugin-markdown-preview](https://github.com/JasKang/vite-plugin-markdown-preview/blob/main/packages/vite-plugin-markdown-preview/), 
+[nova-next](https://github.com/em2046/nova-next/blob/master/build/tasks/register-components.ts)

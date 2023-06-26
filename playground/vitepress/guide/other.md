@@ -6,30 +6,40 @@
 
 基础的卡片用法。
 
-:::demo 使用 `size`、`style` 属性来定义 Card 的样式。
+:::demo
 
 ```vue
 <template>
-  <div class="card-wrap card-wrap--card">
+  <div class="card-wrap">
     <div class="card">{{ title }}</div>
+    <el-button type="primary" style="margin: 16px 16px 0 0" @click="onClick">点击</el-button>
+    <el-date-picker v-model="date" style="margin: 16px 16px 0 0" type="date" />
   </div>
 </template>
 
 <script>
 import { ref, defineComponent } from 'vue'
+import { ElMessage, ElButton, ElDatePicker } from 'element-plus'
 
 export default defineComponent({
+  components: { ElMessage, ElButton, ElDatePicker },
   setup() {
     const title = ref('vitepress-theme-demoblock')
+    const date = ref()
 
-    return { title }
+    const onClick = () => {
+      ElMessage({
+        message: title.value,
+        type: 'success',
+      })
+    }
+
+    return { title, date, onClick }
   }
 })
 </script>
 
-<style lang="less">
-@import "docs/styles/index.css";
-
+<style lang="less" scoped>
 .card-wrap {
   text-align: center;
   .card {
@@ -55,26 +65,35 @@ export default defineComponent({
 
 setup typescript 用法。
 
-:::demo 使用 `size`、`style` 属性来定义 Card 的样式。
+:::demo
 
 ```vue
 <template>
   <div class="card-wrap">
     <div class="card">{{ title }}</div>
+    <el-button type="primary" style="margin: 16px 16px 0 0" @click="onClick">点击</el-button>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { ElMessage, ElButton } from 'element-plus'
 
 interface IObject {
   [k: string]: any
 }
 
 const title = ref<any>('vitepress-theme-demoblock')
+
+const onClick = () => {
+  ElMessage({
+    message: title.value,
+    type: 'success',
+  })
+}
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .card-wrap {
   text-align: center;
   .card {

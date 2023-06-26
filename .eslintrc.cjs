@@ -43,6 +43,8 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 0,
     '@typescript-eslint/no-unused-vars': 1,
     '@typescript-eslint/no-var-requires': 0,
-    '@typescript-eslint/consistent-type-imports': 1
+    '@typescript-eslint/consistent-type-imports': 1,
+    //vue
+    'vue/multi-word-component-names': 1
   }
 }

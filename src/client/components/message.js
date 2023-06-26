@@ -44,7 +44,13 @@ function message(content, { duration = 3, type = '' }) {
 
 export default {
   info(content, options) {
-    return message(content, { ...options })
+    return message(content, { ...options, type: 'info' })
+  },
+  warning(content, options) {
+    return message(content, { ...options, type: 'warning' })
+  },
+  success(content, options) {
+    return message(content, { ...options, type: 'success' })
   },
   error(content, options) {
     return message(content, { ...options, type: 'error' })

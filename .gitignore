@@ -3,6 +3,7 @@ node_modules
 dist
 dist-ssr
 *.local
+playground/vitepress/.vitepress/cache
 
 # local env files
 .env.local

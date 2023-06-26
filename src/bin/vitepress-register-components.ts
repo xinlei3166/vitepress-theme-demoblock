@@ -1,13 +1,14 @@
-// 参考 https://github.com/em2046/nova-next
 import fs from 'fs'
 import path from 'path'
-import glob from 'globby'
+import { globbySync } from 'globby'
 import camelCase from 'camelcase'
 import minimist from 'minimist'
 import pico from 'picocolors'
 import { format } from './help'
 
-const { red, magenta } = pico
+const { red, yellow, cyan } = pico
+const pkgName = cyan('[vitepress-theme-demoblock]')
+
 const argv = minimist(process.argv.slice(2))
 const cwd = process.cwd()
 const resolve = (...args: any[]) => path.resolve(cwd, ...args)
@@ -15,7 +16,7 @@ const docsDir = argv.docsDir || 'docs'
 const componentsDir = argv.componentsDir || 'components'
 
 if (!fs.existsSync(resolve(docsDir))) {
-  console.log(red('docsDir does not exist'))
+  console.log(red(`${pkgName} docsDir does not exist\n`))
   process.exit(0)
 }
 
@@ -55,14 +56,24 @@ function componentsTemplate(codeImports: string, codeRegisters: string) {
 }
 
 function registerComponents() {
-  // if (!fs.existsSync(resolve(vitePressDir, componentsDir))) {
-  //   console.log(magenta('componentsDir does not exist, ignore to register components'))
-  //   return
-  // }
-  const dir = path.join(vitePressDir, componentsDir)
-  const files = glob.sync('**/*.{vue,ts}', {
-    cwd: dir
-  })
+  const dir = resolve(vitePressDir, componentsDir)
+  console.log(
+    `${pkgName} docsDir is ${resolve(docsDir)}, componentsDir is ${resolve(
+      dir
+    )}, start to register components...\n`
+  )
+
+  let files: string[] = []
+  if (!fs.existsSync(dir)) {
+    console.log(
+      yellow(`${pkgName} componentsDir does not exist, only register built-in components.\n`)
+    )
+  } else {
+    files = globbySync('**/*.{vue,ts,tsx,js,jsx}', {
+      cwd: dir
+    })
+  }
+
   const codes = files.map(file => componentTemplate(file))
   const demoPath = 'vitepress-theme-demoblock/dist/client'
   codes.push({
@@ -73,12 +84,17 @@ function registerComponents() {
     import: `import DemoBlock from '${demoPath}/components/DemoBlock.vue'`,
     register: "app.component('DemoBlock', DemoBlock)"
   })
+  codes.forEach(code => {
+    console.log(`${code.import}, ${code.register}`)
+  })
+
   const codeImports = codes.map(code => code.import).join('\n')
   const codeRegisters = codes.map(code => code.register).join('\n')
   const content = componentsTemplate(codeImports, codeRegisters)
   const formattedContent = format(content, { parser: 'babel' })
 
   fs.writeFileSync(path.join(vitePressDir, outputPath), formattedContent)
+  console.log(`\n${pkgName} register components success.\n`)
 }
 
 registerComponents()

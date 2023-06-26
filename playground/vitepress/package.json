@@ -1,0 +1,24 @@
+{
+  "name": "vitepress-theme-demoblock-docs1",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm register:components && vitepress dev",
+    "build": "pnpm register:components && vitepress build",
+    "serve": "vitepress serve",
+    "register:components": "vitepress-rc --docsDir ."
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "vite-plugin-inspect": "^0.7.28",
+    "vitepress-theme-demoblock": "workspace:*",
+    "vitepress": "^1.0.0-beta.3",
+    "vite": "^4.3.9",
+    "@vitejs/plugin-vue-jsx": "^3.0.1",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "vue": "^3.3.4",
+    "element-plus": "^2.3.4",
+    "less": "^4.1.3"
+  }
+}
