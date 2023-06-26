@@ -29,14 +29,14 @@ pnpm add -D vitepress-theme-demoblock
 
 ## 快速上手
 
-`.vitepress/config.js` 文件中使用 `demoBlockPlugin` 和 `demoblockVitePlugin` 插件
+`.vitepress/config.js` 文件中使用 `demoblockPlugin` 和 `demoblockVitePlugin` 插件
 
-import { demoBlockPlugin, demoblockVitePlugin } from 'vitepress-theme-demoblock'
+import { demoblockPlugin, demoblockVitePlugin } from 'vitepress-theme-demoblock'
 
 ```js
 markdown: {
   config: (md) => {
-    md.use(demoBlockPlugin)
+    md.use(demoblockPlugin)
   }
 },
 vite: {
@@ -149,7 +149,7 @@ themeConfig: {
 ```js
 markdown: {
   config: (md) => {
-    md.use(demoBlockPlugin, {
+    md.use(demoblockPlugin, {
       customClass: 'demoblock-custom'
     })
   }
