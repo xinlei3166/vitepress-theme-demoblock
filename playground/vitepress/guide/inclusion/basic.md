@@ -1,6 +1,6 @@
-# Card
+##  来自 inclusion
 
-常用的卡片布局。
+inclusion 中
 
 ## 基础用法 <Badge type="info" text="default" />
 
@@ -150,14 +150,4 @@ export default defineComponent({
 ```
 
 :::
-
-<script setup>
-console.log('vitepress-theme-demoblock setup')
-</script>
-
-<script>
-console.log('vitepress-theme-demoblock')
-</script>
-
-<!--@include: ./inclusion/basic.md-->
 
