@@ -1,3 +1,12 @@
+## [3.0.2](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v3.0.1...v3.0.2) (2023-07-13)
+
+
+### Features
+
+* add support for Markdown File Inclusion ([004965f](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/004965fe73a13892a83ab4055326dba5707a4909))
+
+
+
 ## [3.0.1](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v3.0.0...v3.0.1) (2023-06-26)
 
 
