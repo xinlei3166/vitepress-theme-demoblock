@@ -9,6 +9,7 @@ import path from 'path'
 import os from 'os'
 import h from 'hash-sum'
 import { ScriptSetupMatchPattern } from './patterns'
+import { processIncludes } from './processIncludes'
 
 export const demoPattern = /:::demo([\s\S]*?):::/
 export const codePattern = /.md.demo.[a-zA-Z0-9]+\.(vue|jsx|tsx)$/
@@ -78,7 +79,7 @@ export async function transformCodeToComponent(
       }
     }
   }
-
+  code = processIncludes(code, id, options.root)
   const file = await unified()
     .use(remarkParse)
     .use(remarkFrontmatter)
