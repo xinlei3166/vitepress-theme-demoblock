@@ -13,9 +13,9 @@
 [查看Demo](https://xinlei3166.github.io/vitepress-demo/)
 
 ## 提示
-由于 `Vitepress` 版本更新频繁，目前支持版本为 `1.0.0-beta.3`。
+由于 `Vitepress` 版本更新频繁，目前支持版本为 `1.0.1`。
 
-`Vue` 支持版本为 `3.3.4`。
+`Vue` 支持版本为 `3.4.21`。
 
 ## 安装
 
