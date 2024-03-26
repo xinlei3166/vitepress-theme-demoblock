@@ -75,7 +75,6 @@ export default {
     let instance
     onMounted(() => {
       instance = getCurrentInstance()
-      console.log('instance', instance)
     })
     watch(
       () => route.path,
