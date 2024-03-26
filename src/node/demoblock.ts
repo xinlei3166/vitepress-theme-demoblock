@@ -18,9 +18,16 @@ export const blockPlugin = (md: MarkdownIt, options: DemoblockPluginOptions) => 
         // return `<demo customClass="${options?.customClass || ''}" sourceCode="${md.utils.escapeHtml(
         //   contents
         // )}">${content ? `<!--vue-demo:${content}:vue-demo-->` : ''}`
+        const stringOptions = JSON.stringify(options, function (key, value) {
+          if (typeof value === 'function') {
+            return value.toString()
+          } else {
+            return value
+          }
+        })
         return `<demo customClass="${options?.customClass || ''}" sourceCode="${md.utils.escapeHtml(
           contents
-        )}"><${componentName} />`
+        )}" options='${stringOptions}'><${componentName} />`
       }
       return '</demo>'
     }

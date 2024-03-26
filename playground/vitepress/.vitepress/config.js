@@ -22,7 +22,13 @@ export default defineConfig({
 
     config: (md) => {
       md.use(demoblockPlugin, {
-        customClass: 'demoblock-custom'
+        customClass: 'demoblock-custom',
+        // onCopySuccess: (instance, copySuccess) => {
+        //   instance.appContext.config.globalProperties.message.success(copySuccess)
+        // },
+        // onCopyError: (instance, copyError) => {
+        //   instance.appContext.config.globalProperties.message.error(copyError)
+        // }
       })
     }
   },

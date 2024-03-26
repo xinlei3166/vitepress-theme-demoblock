@@ -91,10 +91,15 @@ function registerComponents() {
   const codeImports = codes.map(code => code.import).join('\n')
   const codeRegisters = codes.map(code => code.register).join('\n')
   const content = componentsTemplate(codeImports, codeRegisters)
-  const formattedContent = format(content, { parser: 'babel' })
-
-  fs.writeFileSync(path.join(vitePressDir, outputPath), formattedContent)
-  console.log(`\n${pkgName} register components success.\n`)
+  // const formattedContent = format(content, { parser: 'babel' })
+  format(content, { parser: 'babel' })
+    .then(formattedContent => {
+      fs.writeFileSync(path.join(vitePressDir, outputPath), formattedContent)
+      console.log(`\n${pkgName} register components success.\n`)
+    })
+    .catch(e => {
+      console.error(`\n${pkgName} format code error.\n`, e)
+    })
 }
 
 registerComponents()

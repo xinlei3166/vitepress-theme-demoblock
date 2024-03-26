@@ -14,4 +14,6 @@ export interface Locales {
 
 export interface DemoblockPluginOptions {
   customClass?: string
+  onCopySuccess?: Function
+  onCopyError?: Function
 }

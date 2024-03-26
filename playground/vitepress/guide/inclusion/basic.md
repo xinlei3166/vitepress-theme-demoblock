@@ -1,6 +1,6 @@
 ##  来自 inclusion
 
-inclusion 中
+inclusion
 
 ## 基础用法 <Badge type="info" text="default" />
 
