@@ -1,3 +1,12 @@
+## [3.0.5](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v3.0.4...v3.0.5) (2024-03-27)
+
+
+### Bug Fixes
+
+* fix HotUpdate ([2d84d67](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/2d84d67997d39de237df54f6fe49d3f8055edb4f))
+
+
+
 ## [3.0.4](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v3.0.3...v3.0.4) (2024-03-26)
 
 

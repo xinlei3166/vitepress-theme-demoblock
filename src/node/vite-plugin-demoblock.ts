@@ -1,4 +1,4 @@
-import type { Plugin } from 'vite'
+import type { Plugin, ModuleNode } from 'vite'
 import path from 'path'
 import fs from 'node:fs'
 import { codePattern, Demoblocks, transformCodeToComponent } from './remark'
@@ -48,7 +48,7 @@ export function VitePluginDemoblock(): Plugin {
           options
         )
         const mods = []
-        const invalidatedModules = new Set()
+        const invalidatedModules: Set<ModuleNode> = new Set()
         for (const block of blocks) {
           const blockId = block.absId
           const mod = server.moduleGraph.getModuleById(blockId)
