@@ -9,7 +9,6 @@ export interface DemoblockOptions {
 }
 
 export function VitePluginDemoblock(): Plugin {
-  let vuePlugin: any = null
   const options: DemoblockOptions = {
     env: 'vitepress',
     root: ''
@@ -20,7 +19,6 @@ export function VitePluginDemoblock(): Plugin {
     enforce: 'pre',
     async configResolved(config) {
       const isVitepress = config.plugins.find(p => p.name === 'vitepress')
-      vuePlugin = config.plugins.find(p => p.name === 'vite:vue')
       options.env = isVitepress ? 'vitepress' : 'vite'
       options.root = config.root
     },
@@ -43,33 +41,37 @@ export function VitePluginDemoblock(): Plugin {
     },
     async handleHotUpdate(ctx) {
       const { file, server, timestamp } = ctx
-      const { moduleGraph } = server
       if (file.endsWith('.md')) {
-        const updates: any[] = []
         const { blocks } = await transformCodeToComponent(
           file,
           fs.readFileSync(file, 'utf8'),
           options
         )
+        const mods = []
+        const invalidatedModules = new Set()
         for (const block of blocks) {
           const blockId = block.absId
-
-          const mod = moduleGraph.getModuleById(blockId)
+          const mod = server.moduleGraph.getModuleById(blockId)
           if (mod) {
-            const result = await vuePlugin.handleHotUpdate({
-              file: blockId,
-              timestamp: timestamp,
-              modules: [mod],
-              read: () => block.value,
-              server: server
-            })
-
-            updates.push(...(result || []))
+            mods.push(mod)
+            server.moduleGraph.invalidateModule(mod, invalidatedModules, timestamp, true)
+            // server.reloadModule(mod)
           }
         }
-        if (updates.length > 0) {
-          return updates.filter(Boolean)
-        }
+        // server.ws.send({
+        //   type: 'update',
+        //   updates: mods
+        //     .map(mod => {
+        //       if (!mod) return null
+        //       return {
+        //         acceptedPath: mod.url,
+        //         path: mod.url,
+        //         timestamp,
+        //         type: 'js-update'
+        //       }
+        //     })
+        //     .filter(Boolean)
+        // })
       }
     }
   }

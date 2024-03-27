@@ -99,7 +99,7 @@ const cardWidth = ref<string>('600px')
 
 ## Jsx <Badge type="tip" text="^2.3.0" />
 
-tsx 用法。
+jsx 用法。
 
 :::demo
 
@@ -159,5 +159,4 @@ console.log('vitepress-theme-demoblock setup')
 console.log('vitepress-theme-demoblock')
 </script>
 
-<!--@include: ./inclusion/basic.md-->
 

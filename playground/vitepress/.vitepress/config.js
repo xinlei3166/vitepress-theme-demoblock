@@ -98,6 +98,10 @@ export default defineConfig({
             {
               text: '第三方',
               link: '/guide/other'
+            },
+            {
+              text: '包含 markdown 文件',
+              link: '/guide/include'
             }
           ]
         }
