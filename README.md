@@ -173,12 +173,10 @@ html.dark {
 配置主题色
 ```css
 :root {
-  --vp-c-brand: #646cff;
-  --vp-c-brand-light: #747bff;
-  --vp-c-brand-lighter: #9499ff;
-  --vp-c-brand-lightest: #bcc0ff;
-  --vp-c-brand-dark: #535bf2;
-  --vp-c-brand-darker: #454ce1;
+  --vp-c-brand-1: hsl(237, 100%, 70%);
+  --vp-c-brand-2: hsl(237, 100%, 73%);
+  --vp-c-brand-3: hsl(237, 100%, 70%);
+  --vp-c-brand-soft: hsl(237, 100%, 70%, 14%);
 }
 ```
 
