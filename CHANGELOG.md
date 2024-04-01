@@ -1,3 +1,7 @@
+## [3.0.6](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v3.0.5...v3.0.6) (2024-04-01)
+
+
+
 ## [3.0.5](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v3.0.4...v3.0.5) (2024-03-27)
 
 
