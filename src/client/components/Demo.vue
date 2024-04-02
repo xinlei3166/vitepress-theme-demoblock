@@ -1,7 +1,7 @@
 <template>
   <ClientOnly>
     <div ref="demoblock" :class="['demoblock', blockClass, customClass ? customClass : '']">
-      <div class="demoblock-view">
+      <div class="demoblock-view vp-raw">
         <slot />
       </div>
       <div class="demoblock-divider demoblock-divider--horizontal"></div>
