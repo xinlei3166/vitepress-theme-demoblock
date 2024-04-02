@@ -1,3 +1,12 @@
+## [3.0.7](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v3.0.6...v3.0.7) (2024-04-02)
+
+
+### Features
+
+* demoblock-view add vp-view ([5090247](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/50902479fff99b8c74e0a2772c132c868e170192))
+
+
+
 ## [3.0.6](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v3.0.5...v3.0.6) (2024-04-01)
 
 
