@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 import { demoblockPlugin, demoblockVitePlugin } from 'vitepress-theme-demoblock'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import Inspect from 'vite-plugin-inspect'
+// import Inspect from 'vite-plugin-inspect'
 import path from 'path'
 
 export default defineConfig({
@@ -34,7 +34,8 @@ export default defineConfig({
   },
 
   vite: {
-    plugins: [demoblockVitePlugin(), vueJsx(), Inspect()],
+    // plugins: [demoblockVitePlugin(), vueJsx(), Inspect()],
+    plugins: [demoblockVitePlugin(), vueJsx()],
     resolve: {
       alias: {
         '@alias': path.resolve(__dirname, '../')

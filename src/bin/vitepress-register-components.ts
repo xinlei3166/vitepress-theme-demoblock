@@ -58,9 +58,9 @@ function componentsTemplate(codeImports: string, codeRegisters: string) {
 function registerComponents() {
   const dir = resolve(vitePressDir, componentsDir)
   console.log(
-    `${pkgName} docsDir is ${resolve(docsDir)}, componentsDir is ${resolve(
+    `${pkgName} start to register components...\ndocsDir is ${resolve(docsDir)}, \ncomponentsDir is ${resolve(
       dir
-    )}, start to register components...\n`
+    )}\n`
   )
 
   let files: string[] = []
