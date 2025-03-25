@@ -1,4 +1,4 @@
-# [3.1.0](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v3.0.7...v3.1.0) (2025-03-25)
+## [3.1.1](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v3.0.7...v3.1.1) (2025-03-25)
 
 
 ### Features
