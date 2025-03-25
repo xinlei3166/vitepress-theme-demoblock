@@ -1,3 +1,12 @@
+# [3.1.0](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v3.0.7...v3.1.0) (2025-03-25)
+
+
+### Features
+
+* test vite6 and vitepress@1.6.3 ([9582403](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/958240387409dd6a073db1eec1c6ede367456396))
+
+
+
 ## [3.0.7](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v3.0.6...v3.0.7) (2024-04-02)
 
 
