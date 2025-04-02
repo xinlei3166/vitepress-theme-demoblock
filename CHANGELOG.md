@@ -1,3 +1,12 @@
+## [3.1.2](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v3.1.1...v3.1.2) (2025-04-02)
+
+
+### Bug Fixes
+
+* fix the problem that emojis cannot be displayed properly in VitePress. ([ad415fa](https://github.com/xinlei3166/vitepress-theme-demoblock/commit/ad415fa207585206026a20d7b2ede93c60829a0d))
+
+
+
 ## [3.1.1](https://github.com/xinlei3166/vitepress-theme-demoblock/compare/v3.0.7...v3.1.1) (2025-03-25)
 
 
