@@ -4,6 +4,10 @@
 
 ## 基础用法 <Badge type="info" text="default" />
 
+:smile:
+:tada: 
+:100:
+
 基础的卡片用法。
 
 :::demo

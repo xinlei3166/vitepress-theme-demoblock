@@ -88,7 +88,7 @@ export async function transformCodeToComponent(
     .use(remarkDemo)
     .process(code)
 
-  // console.log(String(file))
+  // console.log('file source', String(file))
 
   for (const block of blocks) {
     const filename = combineVirtualFilename(id, block.name, block.lang) // component file id
@@ -102,7 +102,9 @@ export async function transformCodeToComponent(
   const _blocks = blocks.map(({ lang, name, id }) => ({ lang, name, id }))
   FileCaches.set(fileId, _blocks)
 
-  const c = String(file).replace(/\\:::/g, ':::')
+  let c = String(file).replace(/\\:::/g, ':::')
+  c = c.replace(/\\:/g, ':')
+  // console.log('file replace', c)
   return { code: c, blocks }
 }
 
