@@ -64,6 +64,7 @@
     "remark": "^15.0.1",
     "remark-directive": "^3.0.0",
     "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.0",
     "remark-parse": "^11.0.0",
     "remark-stringify": "^11.0.0",
     "shiki": "^1.2.0",

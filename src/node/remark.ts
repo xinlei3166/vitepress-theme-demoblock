@@ -2,6 +2,7 @@ import { unified } from 'unified'
 import remarkParse from 'remark-parse'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkDirective from 'remark-directive'
+import remarkGfm from 'remark-gfm'
 import remarkStringify from 'remark-stringify'
 import type { Node } from 'unist'
 import { visit } from 'unist-util-visit'
@@ -82,6 +83,7 @@ export async function transformCodeToComponent(
   code = processIncludes(code, id, options.root)
   const file = await unified()
     .use(remarkParse)
+    .use(remarkGfm)
     .use(remarkFrontmatter)
     .use(remarkDirective)
     .use(remarkStringify)
